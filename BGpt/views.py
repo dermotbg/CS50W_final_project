@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -58,5 +58,11 @@ def register(request):
     
 
 def audio_in(request):
+    print(request.body)
     if request.method == "POST":
-        audio = request.blob
+        audio = request.body
+        if not audio:
+            return HttpResponse('Audio not received')
+        return HttpResponse('Audio received')
+    else:
+        return HttpResponse('Audio Not recieved')

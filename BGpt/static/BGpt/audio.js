@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // def blob outside promise chain
+    let blob;
     // set media reqs
     const constraints = {audio: true};
     // get mic permissions
@@ -29,15 +31,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // convert to blob
-        media_rec.onstop = (e)=>{
-            let blob = new Blob(data, {'type': 'audio/mp3;'});
+        media_rec.onstop = ()=>{
+            blob = new Blob(data, {'type': 'audio/mp3;'});
             data = [];
             let url = window.URL.createObjectURL(blob);
             rec_sound.src = url;
         }
+        fetch (`/audio_in`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken')
+            },
+            body: {
+                'audio': blob
+            }
+        })
     })
     // .then( () => {
-    //     fetch
+    //     fetch (`/audio_in`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'X-CSRFToken': Cookies.get('csrftoken')
+    //         },
+    //         body: {
+    //             'audio': blob
+    //         }
+    //     })
     // })
 
     .catch(function(error) {
