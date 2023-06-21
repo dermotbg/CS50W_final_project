@@ -1,10 +1,16 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+import openai 
+import whisper
+import os
 
-from . import utils, models
+from . import utils, models 
+
+# load key
+openai.api_key = os.environ.get('API_KEY')
 
 # Create your views here.
 def index(request):
@@ -58,11 +64,25 @@ def register(request):
     
 
 def audio_in(request):
-    print(request.body)
+    # print(request.body)
     if request.method == "POST":
-        audio = request.body
-        if not audio:
-            return HttpResponse('Audio not received')
+        blob = request.body
+        # utils.conv_audio_in(audio)
+        if blob:
+            temp_audio = utils.conv_audio_in(blob, "mp3")
+            # audio_array = utils.audio_to_array(temp_audio.name)
+            audio_array = utils.audio_to_array(temp_audio.name)
+            model = whisper.load_model('base')
+            result = model.transcribe(audio_array)
+            # drop temp file
+            os.unlink(temp_audio.name)
+            print(result["text"])
+            return JsonResponse({"message": 'Audio file uploaded successfully.'}, status=200)
+        else:
+            return JsonResponse({"message": 'Audio file not uploaded successfully.'}, status=406)
+        model = whisper.load_model('base')
+        result = model.transcribe(audio)
+        print(result["text"])
         return HttpResponse('Audio received')
-    else:
-        return HttpResponse('Audio Not recieved')
+    # else:
+    #     return HttpResponse('Audio Not recieved')

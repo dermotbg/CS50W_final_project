@@ -31,23 +31,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // convert to blob
-        media_rec.onstop = ()=>{
+        media_rec.onstop = async ()=>{
             blob = new Blob(data, {'type': 'audio/mp3;'});
             data = [];
+
+            // below just for checking in browser
             let url = window.URL.createObjectURL(blob);
             rec_sound.src = url;
-        }
-        fetch (`/audio_in`, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': Cookies.get('csrftoken')
-            },
-            body: {
-                'audio': blob
+
+            try {
+                const response = await fetch (`/audio_in`, {
+                method: 'POST',
+                headers: {
+                    "X-CSRFToken": Cookies.get('csrftoken'),
+                    "Content-Type": "audio/mp3"
+                },
+                body: blob
+            });
+            console.log(response.status);
             }
-        })
+            catch(error){
+                console.log(error)
+            }
+        }
+ 
     })
-    // .then( () => {
+
+    .catch(function(error) {
+        console.log(error.name, error.message);
+    });
+})
+        // .then( () => {
     //     fetch (`/audio_in`, {
     //         method: 'POST',
     //         headers: {
@@ -59,11 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //     })
     // })
 
-    .catch(function(error) {
-        console.log(error.name, error.message);
-    });
-})
-    
 
     // .then(function(MediaStream) {
     //     console.log(MediaStream.state)
