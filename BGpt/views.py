@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 import openai 
 import whisper
@@ -62,27 +63,51 @@ def register(request):
     else:
         return render(request, "BGpt/register.html")
     
-
+@csrf_exempt
 def audio_in(request):
-    # print(request.body)
     if request.method == "POST":
-        blob = request.body
-        # utils.conv_audio_in(audio)
-        if blob:
-            temp_audio = utils.conv_audio_in(blob, "mp3")
-            # audio_array = utils.audio_to_array(temp_audio.name)
-            audio_array = utils.audio_to_array(temp_audio.name)
-            model = whisper.load_model('base')
-            result = model.transcribe(audio_array)
-            # drop temp file
-            os.unlink(temp_audio.name)
-            print(result["text"])
-            return JsonResponse({"message": 'Audio file uploaded successfully.'}, status=200)
-        else:
-            return JsonResponse({"message": 'Audio file not uploaded successfully.'}, status=406)
-        model = whisper.load_model('base')
-        result = model.transcribe(audio)
+        audio = request.FILES['audio']
+        audio_file = utils.save_audio(audio)
+        model = whisper.load_model('tiny')
+        result = model.transcribe(audio_file)
         print(result["text"])
-        return HttpResponse('Audio received')
+        os.remove(audio_file)
+        return JsonResponse({"transcribed_text": result["text"]}, status=200)
+
     # else:
     #     return HttpResponse('Audio Not recieved')
+
+
+
+
+
+
+
+
+
+
+# def audio_in(request):
+#     # print(request.body)
+#     if request.method == "POST":
+#         blob = request.body
+#         # utils.conv_audio_in(audio)
+#         if blob:
+#             # temp_audio = utils.conv_audio_in(blob, "mp3")
+
+#             audio_array = utils.audio_to_array(temp_audio.name)
+#             model = whisper.load_model('base')
+#             result = model.transcribe(audio_array)
+#             print(result["text"])
+
+#             # drop temp file
+#             os.unlink(temp_audio.name)
+            
+#             return JsonResponse({"message": 'Audio file uploaded successfully.'}, status=200)
+#         else:
+#             return JsonResponse({"message": 'Audio file not uploaded successfully.'}, status=406)
+#         model = whisper.load_model('base')
+#         result = model.transcribe(audio)
+#         print(result["text"])
+#         return HttpResponse('Audio received')
+#     # else:
+#     #     return HttpResponse('Audio Not recieved')

@@ -28,31 +28,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // store recorded event data in data array
         media_rec.ondataavailable = function(e) {
             data.push(e.data);
-        }
+        };
 
         // convert to blob
         media_rec.onstop = async ()=>{
-            blob = new Blob(data, {'type': 'audio/mp3;'});
+            const blob = new Blob(data, {'type': 'audio/wav; codecs=opus'});
             data = [];
 
             // below just for checking in browser
             let url = window.URL.createObjectURL(blob);
             rec_sound.src = url;
-
-            try {
-                const response = await fetch (`/audio_in`, {
+            
+            const formData = new FormData();
+            formData.append('audio', blob, 'audio.wav')
+            fetch (`/audio_in`, {
                 method: 'POST',
-                headers: {
-                    "X-CSRFToken": Cookies.get('csrftoken'),
-                    "Content-Type": "audio/mp3"
-                },
-                body: blob
-            });
-            console.log(response.status);
-            }
-            catch(error){
-                console.log(error)
-            }
+                // headers: {
+                //     "X-CSRFToken": Cookies.get('csrftoken'),
+                //     // "Content-Type": "audio/mp3"
+                // },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
         }
  
     })
@@ -80,3 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // .then()
     
 
+
+
+//     try {
+//         const response = await fetch (`/audio_in`, {
+//         method: 'POST',
+//         headers: {
+//             "X-CSRFToken": Cookies.get('csrftoken'),
+//             "Content-Type": "audio/mp3"
+//         },
+//         body: blob
+//     });
+//     console.log(response.status);
+//     }
+//     catch(error){
+//         console.log(error)
+//     }
+// }
+
+// })
