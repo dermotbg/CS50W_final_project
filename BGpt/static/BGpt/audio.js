@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // convert to blob
         media_rec.onstop = async ()=>{
-            const blob = new Blob(data, {'type': 'audio/wav; codecs=opus'});
+            const blob = new Blob(data, {'type': 'audio/ogg; codecs=opus'});
             data = [];
 
             // below just for checking in browser
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rec_sound.src = url;
             
             const formData = new FormData();
-            formData.append('audio', blob, 'audio.wav')
+            formData.append('audio', blob, 'audio.ogg')
             fetch (`/audio_in`, {
                 method: 'POST',
                 // headers: {
@@ -55,46 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
  
     })
-
     .catch(function(error) {
         console.log(error.name, error.message);
     });
 })
-        // .then( () => {
-    //     fetch (`/audio_in`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'X-CSRFToken': Cookies.get('csrftoken')
-    //         },
-    //         body: {
-    //             'audio': blob
-    //         }
-    //     })
-    // })
-
-
-    // .then(function(MediaStream) {
-    //     console.log(MediaStream.state)
-    // })
-    // .then()
-    
-
-
-
-//     try {
-//         const response = await fetch (`/audio_in`, {
-//         method: 'POST',
-//         headers: {
-//             "X-CSRFToken": Cookies.get('csrftoken'),
-//             "Content-Type": "audio/mp3"
-//         },
-//         body: blob
-//     });
-//     console.log(response.status);
-//     }
-//     catch(error){
-//         console.log(error)
-//     }
-// }
-
-// })

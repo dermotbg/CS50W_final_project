@@ -81,33 +81,3 @@ def audio_in(request):
 
 
 
-
-
-
-
-
-# def audio_in(request):
-#     # print(request.body)
-#     if request.method == "POST":
-#         blob = request.body
-#         # utils.conv_audio_in(audio)
-#         if blob:
-#             # temp_audio = utils.conv_audio_in(blob, "mp3")
-
-#             audio_array = utils.audio_to_array(temp_audio.name)
-#             model = whisper.load_model('base')
-#             result = model.transcribe(audio_array)
-#             print(result["text"])
-
-#             # drop temp file
-#             os.unlink(temp_audio.name)
-            
-#             return JsonResponse({"message": 'Audio file uploaded successfully.'}, status=200)
-#         else:
-#             return JsonResponse({"message": 'Audio file not uploaded successfully.'}, status=406)
-#         model = whisper.load_model('base')
-#         result = model.transcribe(audio)
-#         print(result["text"])
-#         return HttpResponse('Audio received')
-#     # else:
-#     #     return HttpResponse('Audio Not recieved')
