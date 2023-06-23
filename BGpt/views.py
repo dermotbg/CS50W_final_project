@@ -4,9 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
+# from pydub.silence import split_on_silence
+
 import openai 
-import whisper
 import os
+import whisper
+
 
 from . import utils, models 
 
@@ -68,16 +71,20 @@ def audio_in(request):
     if request.method == "POST":
         audio = request.FILES['audio']
         audio_file = utils.save_audio(audio)
-        model = whisper.load_model('tiny')
-        result = model.transcribe(audio_file)
-        print(result["text"])
+        # switch statement giving user model sizes?
+        model = whisper.load_model('medium')
+        result = model.transcribe(audio_file, language='bg')
+        print(result['text'])
+        # trans = model.transcribe(audio_file, task='translate', language='bg')
+        # print(trans['text'])
         os.remove(audio_file)
-        return JsonResponse({"transcribed_text": result["text"]}, status=200)
+        _resp = utils.gen_resp(result['text'])
+        return JsonResponse({"input_text": result["text"], "translated_text": _resp}, status=200)
 
     # else:
     #     return HttpResponse('Audio Not recieved')
 
 
-
-
+        _resp = utils.gen_resp(result['text'], trans['text'])
+        return JsonResponse({"input_text": result["text"], "translated_text": trans["text"]}, status=200)
 
