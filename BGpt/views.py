@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
+from gtts import gTTS
 # from pydub.silence import split_on_silence
 
 import openai 
@@ -69,22 +70,38 @@ def register(request):
 @csrf_exempt
 def audio_in(request):
     if request.method == "POST":
+        # take/save blob from req
         audio = request.FILES['audio']
         audio_file = utils.save_audio(audio)
+
+
         # switch statement giving user model sizes?
+        # TODO
         model = whisper.load_model('medium')
         result = model.transcribe(audio_file, language='bg')
         print(result['text'])
+
+        # translation if needed later:
         # trans = model.transcribe(audio_file, task='translate', language='bg')
         # print(trans['text'])
+
+        # drop audio file
         os.remove(audio_file)
+
+        # generate response
         _resp = utils.gen_resp(result['text'])
-        return JsonResponse({"input_text": result["text"], "translated_text": _resp}, status=200)
 
-    # else:
-    #     return HttpResponse('Audio Not recieved')
+        # Generate TTS file
+        tts = gTTS(f"{_resp}", lang="bg")
+        tts.save("BGpt/static/BGpt/resp.ogg")
 
+        # encode to base 64
+        tts_b64 = utils.encode_resp("BGpt/static/BGpt/resp.ogg")
 
-        _resp = utils.gen_resp(result['text'], trans['text'])
-        return JsonResponse({"input_text": result["text"], "translated_text": trans["text"]}, status=200)
+        # drop TTS file
+        os.remove("BGpt/static/BGpt/resp.ogg")
+
+        # send b64 response via json
+        # return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64}, status=200)
+        return JsonResponse({"tts_resp": tts_b64}, status=200)
 

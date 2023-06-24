@@ -50,7 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: formData
             })
             .then(response => response.json())
-            .then(data => console.log(data))
+            // console.log(response))
+            .then(data => {
+                console.log(data);
+                playAudio(data.tts_resp);
+            })
             .catch(error => console.log(error))
         }
  
@@ -59,3 +63,29 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(error.name, error.message);
     });
 })
+
+function playAudio(audio_B64) {
+    // create new audio context object
+    const audio_context = new AudioContext();
+
+    // create source to be played once decoded
+    const buffer_source = audio_context.createBufferSource();
+
+    // decode base 64 string
+    const audioData = atob(audio_B64)
+
+    // create array size of audio file
+    const audio_array_buffer = new Uint8Array(audioData.length)
+    
+    // store decoded data within array 
+    for(let i = 0; i < audioData.length; i++){
+        audio_array_buffer[i] = audioData.charCodeAt(i);
+    }
+    // decode the array into an audio buffer
+    audio_context.decodeAudioData(audio_array_buffer.buffer, buffer =>{
+        buffer_source.buffer = buffer;
+        // connect to output device and start playback
+        buffer_source.connect(audio_context.destination);
+        buffer_source.start(0);
+    });
+}
