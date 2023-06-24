@@ -31,8 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // convert to blob
-        media_rec.onstop = async ()=>{
+        media_rec.onstop = () => {
+            // create blob with the required specs
             const blob = new Blob(data, {'type': 'audio/ogg; codecs=opus'});
+            // clear data array for the next iteration
             data = [];
 
             // below just for checking in browser
@@ -43,10 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('audio', blob, 'audio.ogg')
             fetch (`/audio_in`, {
                 method: 'POST',
-                // headers: {
-                //     "X-CSRFToken": Cookies.get('csrftoken'),
-                //     // "Content-Type": "audio/mp3"
-                // },
                 body: formData
             })
             .then(response => response.json())
