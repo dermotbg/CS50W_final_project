@@ -45,12 +45,16 @@ function conversationLoop(){
 
         // on record button function
         start_btn.addEventListener('click', () =>{
+            start_btn.style.display ='none'
+            stop_btn.style.display = 'block'
             media_rec.start();
             console.log(media_rec.state);
         });
 
         // on stop button function
         stop_btn.addEventListener('click', () => {
+            start_btn.style.display ='block'
+            stop_btn.style.display = 'none'
             media_rec.stop();
             console.log(media_rec.state);
         });
