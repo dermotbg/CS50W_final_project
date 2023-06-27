@@ -84,7 +84,7 @@ function conversationLoop(){
                 playAudio(data.tts_resp);
                 replay = document.querySelector('#btn-replay')
                 replay.style.display = "block";
-                document.addEventListener('click', () => {
+                replay.addEventListener('click', () => {
                     playAudio(data.tts_resp);
                 })
             })
