@@ -91,6 +91,8 @@ function conversationLoop(){
                 replay.addEventListener('click', () => {
                     playAudio(data.tts_resp);
                 })
+                resp_area = document.querySelector('#response');
+                resp_area.innerHTML = data.GPT_Response;
             })
             .catch(error => console.log(error))
         }

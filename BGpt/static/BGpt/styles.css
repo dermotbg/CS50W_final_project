@@ -1,0 +1,15 @@
+body .btn-prim {
+  background-color: #ffffff;
+  color: #be3131;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border: #2b0000;
+  box-shadow: 7px 3px 3px #153f2f;
+}
+body .btn-prim:hover {
+  background-color: #97d954;
+  color: #070760;
+}
+
+/*# sourceMappingURL=styles.css.map */
