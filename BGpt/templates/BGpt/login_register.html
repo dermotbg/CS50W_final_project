@@ -6,7 +6,7 @@
     <button type="button" class="btn-prim" id="login">Login</button>
     <button type="button" class="btn-prim" id="register">Register</button>
 </div>
-<!-- REG FORM - will be shown on click? -->
+<!-- REG FORM -->
 <div id="register-cont">
     <form action="{% url 'register' %}" method="post" autocomplete="off">
         {% csrf_token %}
@@ -50,12 +50,15 @@
         const reg_btn = document.querySelector("#register");
         const login = document.querySelector("#login-cont");
         const reg = document.querySelector("#register-cont");
+        const message = document.querySelector(".message");
 
         reg_btn.addEventListener('click', () => {
+            message.style.display = 'none';
             login.style.display = 'none';
             reg.style.display = 'flex';
         });
         login_btn.addEventListener('click', () => {
+            message.style.display = 'none';
             login.style.display = 'flex';
             reg.style.display = 'none';
         });
