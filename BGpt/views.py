@@ -48,7 +48,6 @@ def register(request):
         email = request.POST["email"]
         password = request.POST["password"]
         conf = request.POST["confirmation"]
-        print(request.POST)
 
         if not username and email and password and conf:
             return render(request, "BGpt/login_register.html", {
