@@ -95,6 +95,7 @@ def audio_in(request):
 
         # generate response
         _resp = utils.gen_resp(result['text'])
+        words = _resp.split()
 
         # Generate TTS file
         tts = gTTS(f"{_resp}", lang="bg")
@@ -107,6 +108,6 @@ def audio_in(request):
         os.remove("BGpt/static/BGpt/resp.ogg")
 
         # send b64 response via json
-        return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64}, status=200)
+        return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64, "words": words}, status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 

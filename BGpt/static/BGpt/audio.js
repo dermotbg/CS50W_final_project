@@ -84,6 +84,12 @@ function conversationLoop(){
             .then(response => response.json())
             // console.log(response))
             .then(data => {
+                // clear old response if applicable
+                const resp_area = document.querySelector('#response');
+                while (resp_area.firstChild){
+                    resp_area.removeChild(resp_area.lastChild)
+                }
+                // print and play
                 console.log(data);
                 playAudio(data.tts_resp);
                 replay = document.querySelector('#btn-replay')
@@ -91,8 +97,27 @@ function conversationLoop(){
                 replay.addEventListener('click', () => {
                     playAudio(data.tts_resp);
                 })
-                resp_area = document.querySelector('#response');
-                resp_area.innerHTML = data.GPT_Response;
+                // const resp_area = document.querySelector('#response');
+                // resp_area.innerHTML = data.GPT_Response;
+
+                // word by word response
+                let words = data.words
+                let i = 0;
+                let pSpeed = setInterval(() => {
+
+                    if (i < words.length){
+                        const word = document.createElement("div");
+                        word.classList.add(`div${i}`)
+                        word.innerHTML = (`${words[i]} `);
+                        word.style.paddingRight = '5px';
+                        resp_area.appendChild(word);
+                        const lb = document.createElement("br");
+                        i++;
+                    }
+                    else{
+                        clearInterval = pSpeed
+                    }
+                }, 500);
             })
             .catch(error => console.log(error))
         }

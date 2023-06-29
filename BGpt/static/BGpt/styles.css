@@ -6,6 +6,9 @@ body .btn-prim {
   border-style: solid;
   border: #2b0000;
 }
+body .btn-prim .login .register {
+  border: 1px, solid, #2b0000;
+}
 body .btn-prim:hover {
   background-color: #2b0000;
   color: #ffffff;
@@ -33,6 +36,16 @@ body .message {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+body #response {
+  display: flex;
+  border: 10px solid red;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 40%;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -22,6 +22,10 @@ body{
         // border-radius: 5px;
         border: $black;
         // box-shadow: 7px 3px 3px $green-drk ;
+
+        .login .register{
+            border: 1px, solid, $black;
+        }
     }
     .btn-prim:hover{
         background-color: $black;
@@ -51,5 +55,15 @@ body{
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+    #response{
+        display: flex;
+        border: 10px solid red;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 40%;
+        align-items: center;
+        justify-content: space-between;
+        margin: auto;
     }
 }
