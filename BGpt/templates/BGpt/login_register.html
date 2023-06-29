@@ -2,9 +2,10 @@
 {% load static %}
 
 {% block body %}
-
-<button type="button" class="btn-prim" id="login">Login</button>
-<button type="button" class="btn-prim" id="register">Register</button>
+<div class="btn-cont">
+    <button type="button" class="btn-prim" id="login">Login</button>
+    <button type="button" class="btn-prim" id="register">Register</button>
+</div>
 <!-- REG FORM - will be shown on click? -->
 <div id="register-cont">
     <form action="{% url 'register' %}" method="post" autocomplete="off">
@@ -37,6 +38,9 @@
         </div>
         <button type="submit" class="btn">Submit</button>
     </form>
+</div>
+<div class="message">
+    {{ message }}
 </div>
 {% endblock %}
 {% block page_scripts %}

@@ -31,11 +31,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, 'BGpt/index.html', {
-                "login_msg": "Invalid Username and/or Password"
+            return render(request, 'BGpt/login_register.html', {
+                "message": "Invalid Username and/or Password"
             })
     else:
-        return render(request, "BGpt/index.html")
+        return render(request, "BGpt/login_register.html")
 
 def logout_view(request):
     logout(request)
@@ -46,26 +46,32 @@ def register(request):
     if request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
-
-        # check pw
         password = request.POST["password"]
         conf = request.POST["confirmation"]
+        print(request.POST)
+
+        if not username and email and password and conf:
+            return render(request, "BGpt/login_register.html", {
+                "message": "Please fill in all fields"
+            })
+        # check pw
         if password != conf:
-            return render(request, "BGpt/register.html", {
+            return render(request, "BGpt/login_register.html", {
                 "message": "Passwords do not match"
             })
-
+        # check username
         try:
             user = models.User.objects.create_user(username, password, email)
             user.save()
         except IntegrityError:
-            return render(request, "BGpt/register.html", {
+            return render(request, "BGpt/login_register.html", {
                 "message": "Username already exists"
             })
+        
         login(request, user)
         return HttpResponseRedirect(reverse('index'))
     else:
-        return render(request, "BGpt/register.html")
+        return render(request, "BGpt/login_register.html")
     
 @csrf_exempt
 def audio_in(request):
