@@ -1,20 +1,16 @@
-// palette: https://lospec.com/palette-list/shine-16 
+// palette: https://lospec.com/palette-list/journey-6
 $turk: #9de4e4;
 $blue-lg: #5d9ddd;
 $blue-drk: #070760;
-$purp: #612f93;
-$purp-lg: #b99cd4;
-$pink: #bf66bf;
 $white: #ffffff;
-$brown: #784a5f;
 $black: #2b0000;
-$maroon: #49132f;
-$red: #be3131;
+$red: #ff2d2d;
 $org: #efa65d;
 $yellow: #ecec77;
-$green-lg: #97d954;
-$green-md: #2d892d;
-$green-drk: #153f2f;
+$khaki: #c0aa74;
+$khaki-lg: #f1f1d1;
+$green: #319835;
+$green-drk: #0f4d32; 
 
 body{
     .btn-prim{
@@ -27,7 +23,15 @@ body{
         box-shadow: 7px 3px 3px $green-drk ;
     }
     .btn-prim:hover{
-        background-color: $green-lg;
-        color: $blue-drk;
+        background-color: $black;
+        color: $white;
+    }
+    #register-cont{
+        display: none;
+        flex-direction: column;
+    }
+    #login-cont{
+        display: flex;
+        flex-direction: column;
     }
 }
