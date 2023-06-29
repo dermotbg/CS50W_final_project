@@ -77,6 +77,12 @@ function conversationLoop(){
             
             const formData = new FormData();
             formData.append('audio', blob, 'audio.ogg')
+
+            // check for model selection
+            model = document.querySelector('#model_selector').value;
+            formData.append('model', JSON.stringify(model));
+            // console.log(model)
+            
             fetch (`/audio_in`, {
                 method: 'POST',
                 body: formData

@@ -5,8 +5,10 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from gtts import gTTS
+from googletrans import Translator
 # from pydub.silence import split_on_silence
 
+import json
 import openai 
 import os
 import whisper
@@ -80,11 +82,20 @@ def audio_in(request):
         audio_file = utils.save_audio(audio)
 
 
-        # switch statement giving user model sizes?
-        # TODO
-        model = whisper.load_model('medium')
+
+        # TODO : ENG to BG / BG to ENG selection
+        formModel = json.loads(request.POST.get('model'))
+        print(formModel)
+        match formModel:
+            case "base":
+                model = whisper.load_model('base')
+            case "med":
+                model = whisper.load_model('medium')
+            case "large":
+                model = whisper.load_model('large')
+        
         result = model.transcribe(audio_file, language='bg')
-        print(result['text'])
+        # print(result['text'])
 
         # translation if needed later:
         # trans = model.transcribe(audio_file, task='translate', language='bg')
@@ -96,6 +107,12 @@ def audio_in(request):
         # generate response
         _resp = utils.gen_resp(result['text'])
         words = _resp.split()
+        # words_trans = []
+        # translator = Translator()
+        # for i in words:
+        #     chunk = translator.translate(i)
+        #     words_trans.append(chunk)
+        # print(words_trans)
 
         # Generate TTS file
         tts = gTTS(f"{_resp}", lang="bg")

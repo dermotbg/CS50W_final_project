@@ -8,6 +8,13 @@ TODO:
 <p>user/login/register  interface (modal?)</p>
 
 <!-- <audio id="recorder" controls></audio> -->
+<h3>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h3>
+<select name="model" id="model_selector">
+    <option value="base">Base ~20 seconds response time (Innaccurate)</option>
+    <option value="med">Medium ~1 minute response time (Recommended) </option>
+    <option value="large">Large ~3 minute response time (Accurate)</option>
+</select>
+<br>
 <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
 <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
 <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
