@@ -109,8 +109,6 @@ function conversationLoop(){
                 replay.addEventListener('click', () => {
                     playAudio(data.tts_resp);
                 })
-                // const resp_area = document.querySelector('#response');
-                // resp_area.innerHTML = data.GPT_Response;
 
                 // word by word response
                 let words = data.words
@@ -120,13 +118,24 @@ function conversationLoop(){
                     if (i < words.length){
                         // div for word
                         const word = document.createElement("div");
-
-                        word.title = data.trans[i]
-
+                        // class for word    
                         word.classList.add(`div${i}`)
+                        // add reqs and append
                         word.innerHTML = (`${words[i]} `);
                         word.style.paddingRight = '5px';
+
+                        // assign translated word to title
+                        word.title = data.trans[i]
+
+                        // assign attributes for bootstrap tooltip 
+                        word.setAttribute("data-toggle", "tooltip");
+                        word.setAttribute("data-placement", "top");
+
+                        // append to response
                         resp_area.appendChild(word);
+
+                        // initialise bootstrap tooltip
+                        new bootstrap.Tooltip(word);
                         i++;
                     }
                     else{
