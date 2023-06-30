@@ -92,8 +92,12 @@ function conversationLoop(){
             .then(data => {
                 // clear old response if applicable
                 const resp_area = document.querySelector('#response');
+                const trans_area = document.querySelector('#resp-trans');
                 while (resp_area.firstChild){
                     resp_area.removeChild(resp_area.lastChild)
+                }
+                while (trans_area.firstChild){
+                    trans_area.removeChild(trans_area.lastChild)
                 }
                 // print and play
                 console.log(data);
@@ -117,19 +121,23 @@ function conversationLoop(){
                         // div for word
                         const word = document.createElement("div");
 
-                        // word.title = data.trans[i]
+                        word.title = data.trans[i]
 
                         word.classList.add(`div${i}`)
                         word.innerHTML = (`${words[i]} `);
                         word.style.paddingRight = '5px';
                         resp_area.appendChild(word);
-                        const lb = document.createElement("br");
                         i++;
                     }
                     else{
                         clearInterval = pSpeed
                     }
                 }, 500);
+                const f_trans = document.createElement("div");
+                f_trans.innerHTML = `${data.full_trans}`
+                trans_area.appendChild(f_trans)
+
+            
             })
             .catch(error => console.log(error))
         }

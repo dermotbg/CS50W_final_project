@@ -10,7 +10,7 @@ TODO:
 <!-- <audio id="recorder" controls></audio> -->
 <h3>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h3>
 <select name="model" id="model_selector">
-    <option value="base">Base ~20 seconds response time (Innaccurate)</option>
+    <option value="base">Base ~20 seconds response time (Inaccurate)</option>
     <option value="med">Medium ~1 minute response time (Recommended) </option>
     <option value="large">Large ~3 minute response time (Accurate)</option>
 </select>
@@ -20,9 +20,10 @@ TODO:
 <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
 <br>
 <!-- <audio controls id="playback"></audio> -->
-
-<div id="response"></div>
-
+<div id="resp-cont">
+    <div id="response"></div>
+    <div id="resp-trans"></div>
+</div>
 {% endblock %}
 
 

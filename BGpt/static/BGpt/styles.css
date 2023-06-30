@@ -37,7 +37,12 @@ body .message {
   flex-direction: row;
   justify-content: center;
 }
-body #response {
+body #resp-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body #response, body #resp-trans {
   display: flex;
   border: 10px solid red;
   flex-direction: row;

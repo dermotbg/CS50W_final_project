@@ -107,12 +107,17 @@ def audio_in(request):
         # generate response
         _resp = utils.gen_resp(result['text'])
         full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
+        print(full_trans)
         words = _resp.split()
         trans = []
 
         for word in words:
-            translations = GoogleTranslator(source='bg', target="en").translate(word)
-            trans.append(translations)
+            try:
+                translations = GoogleTranslator(source='bg', target="en").translate(word)
+                trans.append(translations)
+            except ConnectionError:
+                trans.append('?')
+                return JsonResponse({"Error": "GT_RESP"}, status=424)
 
         # Generate TTS file
         tts = gTTS(f"{_resp}", lang="bg")
