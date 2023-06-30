@@ -97,6 +97,8 @@ function conversationLoop(){
                 }
                 // print and play
                 console.log(data);
+
+
                 playAudio(data.tts_resp);
                 replay = document.querySelector('#btn-replay')
                 replay.style.display = "block";
@@ -112,7 +114,11 @@ function conversationLoop(){
                 let pSpeed = setInterval(() => {
 
                     if (i < words.length){
+                        // div for word
                         const word = document.createElement("div");
+
+                        // word.title = data.trans[i]
+
                         word.classList.add(`div${i}`)
                         word.innerHTML = (`${words[i]} `);
                         word.style.paddingRight = '5px';

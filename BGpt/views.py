@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from gtts import gTTS
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 # from pydub.silence import split_on_silence
 
 import json
@@ -85,7 +85,7 @@ def audio_in(request):
 
         # TODO : ENG to BG / BG to ENG selection
         formModel = json.loads(request.POST.get('model'))
-        print(formModel)
+
         match formModel:
             case "base":
                 model = whisper.load_model('base')
@@ -106,13 +106,13 @@ def audio_in(request):
 
         # generate response
         _resp = utils.gen_resp(result['text'])
+        full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
         words = _resp.split()
-        # words_trans = []
-        # translator = Translator()
-        # for i in words:
-        #     chunk = translator.translate(i)
-        #     words_trans.append(chunk)
-        # print(words_trans)
+        trans = []
+
+        for word in words:
+            translations = GoogleTranslator(source='bg', target="en").translate(word)
+            trans.append(translations)
 
         # Generate TTS file
         tts = gTTS(f"{_resp}", lang="bg")
@@ -125,6 +125,6 @@ def audio_in(request):
         os.remove("BGpt/static/BGpt/resp.ogg")
 
         # send b64 response via json
-        return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64, "words": words}, status=200)
+        return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64, "words": words, "trans": trans, "full_trans": full_trans}, status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 
