@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    conversationLoop()
+    // initialise handler in global scale to stop overlapping on replay button
+    var playAudioHandler;
+    conversationLoop(playAudioHandler)
 })
 
 function playAudio(audio_B64) {
@@ -28,7 +30,7 @@ function playAudio(audio_B64) {
     });
 }
 
-function conversationLoop(){
+function conversationLoop(playAudioHandler){
     // def blob outside promise chain
     let blob;
     // set media reqs
@@ -41,7 +43,7 @@ function conversationLoop(){
         const stop_btn = document.querySelector('#btn-stop');
         const media_rec = new MediaRecorder(audio_stream);
         let data = [];
-        let rec_sound = document.querySelector('#playback');
+        // let rec_sound = document.querySelector('#playback');
 
         // on record button function
         start_btn.addEventListener('click', () =>{
@@ -68,12 +70,10 @@ function conversationLoop(){
         media_rec.onstop = () => {
             // create blob with the required specs
             const blob = new Blob(data, {'type': 'audio/ogg; codecs=opus'});
+
             // clear data array for the next iteration
             data = [];
 
-            // below just for checking in browser
-            // let url = window.URL.createObjectURL(blob);
-            // rec_sound.src = url;
             
             const formData = new FormData();
             formData.append('audio', blob, 'audio.ogg')
@@ -90,9 +90,12 @@ function conversationLoop(){
             .then(response => response.json())
             // console.log(response))
             .then(data => {
-                // clear old response if applicable
+                // initialise required variables
                 const resp_area = document.querySelector('#response');
                 const trans_area = document.querySelector('#resp-trans');
+                const replay = document.querySelector('#btn-replay')
+
+                // clear old response if applicable
                 while (resp_area.firstChild){
                     resp_area.removeChild(resp_area.lastChild)
                 }
@@ -101,15 +104,24 @@ function conversationLoop(){
                 }
                 // print and play
                 console.log(data);
-
-
                 playAudio(data.tts_resp);
-                replay = document.querySelector('#btn-replay')
-                replay.style.display = "block";
-                replay.addEventListener('click', () => {
-                    playAudio(data.tts_resp);
-                })
 
+                // replay event needs a handler to be removed each time to prevent overlapping
+                if (playAudioHandler != null){
+                    replay.removeEventListener('click', playAudioHandler);
+                };
+
+
+                playAudioHandler = () => {
+                    playAudio(data.tts_resp);
+                };  
+
+                // add most recent tts iteration
+                replay.addEventListener('click', playAudioHandler)
+
+                // display button
+                replay.style.display = "block";
+            
                 // word by word response
                 let words = data.words
                 let i = 0;
