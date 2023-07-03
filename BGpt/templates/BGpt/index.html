@@ -8,33 +8,54 @@ TODO:
 <p>user/login/register  interface (modal?)</p>
 
 {% if user.is_authenticated %}
-<!-- <audio id="recorder" controls></audio> -->
-<h3>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h3>
-<select name="model" id="model_selector">
-    <option value="base">Base ~20 seconds response time (Inaccurate)</option>
-    <option value="med">Medium ~1 minute response time (Recommended) </option>
-    <option value="large">Large ~3 minute response time (Accurate)</option>
-</select>
-<br>
-<button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
-<button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
-<button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!-- Button trigger chat_window modal -->
+<button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_window">
+  Let's Chat!
+</button>
+<!-- Button trigger chat_history modal -->
+<button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
   Load Previous Chat
 </button>
 {% else %}
 <h3><a href="{% url 'login' %}">Login here to start chatting!</a></h3>
 {% endif %}
 <br>
-<!-- <audio controls id="playback"></audio> -->
-<div id="resp-cont">
-    <div id="response"></div>
-    <div id="resp-trans"></div>
+
+<!-- Start Chatting Modal -->
+<div class="modal fade" id="chat_window" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chat_window" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Let's Chat!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h3>
+        <select name="model" id="model_selector">
+            <option value="base">Base ~20 seconds response time (Inaccurate)</option>
+            <option value="med">Medium ~1 minute response time (Recommended) </option>
+            <option value="large">Large ~3 minute response time (Accurate)</option>
+        </select>
+        <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
+        <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
+        <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
+        <br>
+        <div id="resp-cont">
+          <div id="response"></div>
+          <div id="resp-trans"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-prim">Close session</button>
+      </div>
+    </div>
+  </div>
 </div>
+
   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Chat History Modal -->
+  <div class="modal fade" id="chat_history" tabindex="-1" aria-labelledby="chat_history" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -46,7 +67,7 @@ TODO:
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-prim">Save changes</button>
+          <!-- <button type="button" class="btn btn-prim">Save changes</button> -->
         </div>
       </div>
     </div>
