@@ -18,12 +18,36 @@ TODO:
 <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
 <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
 <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Load Previous Chat
+</button>
 <br>
 <!-- <audio controls id="playback"></audio> -->
 <div id="resp-cont">
     <div id="response"></div>
     <div id="resp-trans"></div>
 </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Chat History</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          This is where the last chats will be stored.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-prim">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
 
 

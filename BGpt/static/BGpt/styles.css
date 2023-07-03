@@ -13,6 +13,18 @@ body .btn-prim:hover {
   background-color: #2b0000;
   color: #ffffff;
 }
+body .btn-sec {
+  background-color: #ffffff;
+  color: #2b0000;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border: #2b0000;
+}
+body .btn-sec:hover {
+  background-color: #ff2d2d;
+  color: #ffffff;
+}
 body #register-cont {
   display: none;
   flex-direction: column;

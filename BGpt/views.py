@@ -107,7 +107,7 @@ def audio_in(request):
         # generate response
         _resp = utils.gen_resp(result['text'])
         full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
-        print(full_trans)
+        # print(full_trans)
         words = _resp.split()
         trans = []
 
@@ -130,6 +130,12 @@ def audio_in(request):
         os.remove("BGpt/static/BGpt/resp.ogg")
 
         # send b64 response via json
-        return JsonResponse({"input": result["text"], "GPT_Response": _resp, "tts_resp": tts_b64, "words": words, "trans": trans, "full_trans": full_trans}, status=200)
+        return JsonResponse({"input": result["text"], 
+                             "GPT_Response": _resp, 
+                             "tts_resp": tts_b64, 
+                             "words": words, 
+                             "trans": trans, 
+                             "full_trans": full_trans}, 
+                             status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 

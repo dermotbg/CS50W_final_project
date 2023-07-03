@@ -19,9 +19,7 @@ body{
         font-weight: bold;
         border-width: 1px;
         border-style: solid;
-        // border-radius: 5px;
         border: $black;
-        // box-shadow: 7px 3px 3px $green-drk ;
 
         .login .register{
             border: 1px, solid, $black;
@@ -29,6 +27,19 @@ body{
     }
     .btn-prim:hover{
         background-color: $black;
+        color: $white;
+    }
+
+    .btn-sec{
+        background-color: $white;
+        color: $black;
+        font-weight: bold;
+        border-width: 1px;
+        border-style: solid;
+        border: $black;
+    }
+    .btn-sec:hover{
+        background-color: $red;
         color: $white;
     }
     #register-cont{
