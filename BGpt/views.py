@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -75,13 +76,22 @@ def register(request):
         return render(request, "BGpt/login_register.html")
     
 @csrf_exempt
+@login_required
 def audio_in(request):
     if request.method == "POST":
+
+        # check for session id
+        try: 
+            session_id = request.session['chat_id']
+            if not request.session['last_resp']:
+                session_id +=1
+        except KeyError:
+            request.session['chat_id'] = 1
+            session_id = 1
+        
         # take/save blob from req
         audio = request.FILES['audio']
         audio_file = utils.save_audio(audio)
-
-
 
         # TODO : ENG to BG / BG to ENG selection
         formModel = json.loads(request.POST.get('model'))
@@ -95,11 +105,6 @@ def audio_in(request):
                 model = whisper.load_model('large')
         
         result = model.transcribe(audio_file, language='bg')
-        # print(result['text'])
-
-        # translation if needed later:
-        # trans = model.transcribe(audio_file, task='translate', language='bg')
-        # print(trans['text'])
 
         # drop audio file
         os.remove(audio_file)
@@ -107,7 +112,9 @@ def audio_in(request):
         # generate response
         _resp = utils.gen_resp(result['text'])
         full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
-        # print(full_trans)
+        # store last resp in session for future session checks. 
+        request.session['last_resp'] = _resp
+
         words = _resp.split()
         trans = []
 
@@ -128,6 +135,14 @@ def audio_in(request):
 
         # drop TTS file
         os.remove("BGpt/static/BGpt/resp.ogg")
+
+        # store to db
+        log = models.Chat.objects.create(user=request.user,
+                                         session=session_id,
+                                         input=result['text'],
+                                         response=_resp,
+                                         trans_resp=full_trans)
+        log.save()
 
         # send b64 response via json
         return JsonResponse({"input": result["text"], 
