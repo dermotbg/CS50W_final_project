@@ -9,5 +9,5 @@ urlpatterns =[
 
 
     # API's
-    path("audio_in", views.audio_in, name="audio_in")
+    path("chat_loop", views.chat_loop, name="chat_loop")
 ]

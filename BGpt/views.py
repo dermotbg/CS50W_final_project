@@ -77,18 +77,32 @@ def register(request):
     
 @csrf_exempt
 @login_required
-def audio_in(request):
+# def audio_in(request):
+def chat_loop(request):
+    if request.method == "PUT":
+        if request.session['chat_id']:
+            request.session['chat_id'] = None
+            return JsonResponse({"message": "session_ended"}, status=200)
+        else:
+            return JsonResponse({"message": "No Session to end"}, status=200)
+        # request.session['last_resp'] = None
+    
+    
     if request.method == "POST":
-
         # check for session id
-        try: 
-            session_id = request.session['chat_id']
-            if not request.session['last_resp']:
-                session_id +=1
-        except KeyError:
-            request.session['chat_id'] = 1
-            session_id = 1
-        
+        session_id = None
+        if request.session['chat_id'] is not None:
+                session_id = request.session['chat_id']
+        else:
+            try:
+                lc = models.Chat.objects.filter(user=request.user).last()
+                session_id = lc.session
+                session_id +=1 
+                request.session['chat_id'] = session_id
+            except models.Chat.DoesNotExist:
+                request.session['chat_id'] = 1
+                session_id = 1
+
         # take/save blob from req
         audio = request.FILES['audio']
         audio_file = utils.save_audio(audio)
@@ -113,7 +127,7 @@ def audio_in(request):
         _resp = utils.gen_resp(result['text'])
         full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
         # store last resp in session for future session checks. 
-        request.session['last_resp'] = _resp
+        # request.session['last_resp'] = _resp
 
         words = _resp.split()
         trans = []

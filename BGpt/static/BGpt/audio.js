@@ -1,8 +1,12 @@
+// export {clearResponse};
 document.addEventListener('DOMContentLoaded', () => {
+    // handle close session when modal is closed. 
+    closeSession();
     // initialise handler in global scale to stop overlapping on replay button
     var playAudioHandler;
     conversationLoop(playAudioHandler)
 })
+
 
 function playAudio(audio_B64) {
     // create new audio context object
@@ -29,6 +33,8 @@ function playAudio(audio_B64) {
         buffer_source.start(0);
     });
 }
+
+
 
 function conversationLoop(playAudioHandler){
     // def blob outside promise chain
@@ -83,7 +89,7 @@ function conversationLoop(playAudioHandler){
             formData.append('model', JSON.stringify(model));
             // console.log(model)
             
-            fetch (`/audio_in`, {
+            fetch (`/chat_loop`, {
                 method: 'POST',
                 body: formData
             })
@@ -166,5 +172,33 @@ function conversationLoop(playAudioHandler){
     })
     .catch(function(error) {
         console.log(error.name, error.message);
+    });
+}
+
+// function clearResponse(){
+//     resp_area = document.querySelector('#response');
+//     trans_area = document.querySelector('#resp-trans');
+//     while (resp_area.firstChild){
+//         resp_area.removeChild(resp_area.lastChild)
+//     }
+//     while (trans_area.firstChild){
+//         trans_area.removeChild(trans_area.lastChild)
+//     }  
+// }
+
+function closeSession(){
+    const close_sess = document.querySelectorAll('.cls-sess');
+    close_sess.forEach(function(e){
+        e.addEventListener('click', function(){
+            fetch('/chat_loop',{
+                method: "PUT",
+                body: JSON.stringify({
+                    message: "Session Closed"
+                })
+            })
+            .then( () => {
+                // clearResponse()
+            })
+        });
     });
 }
