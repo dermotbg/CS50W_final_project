@@ -34,8 +34,6 @@ function playAudio(audio_B64) {
     });
 }
 
-
-
 function conversationLoop(playAudioHandler){
     // def blob outside promise chain
     let blob;
@@ -175,17 +173,6 @@ function conversationLoop(playAudioHandler){
     });
 }
 
-// function clearResponse(){
-//     resp_area = document.querySelector('#response');
-//     trans_area = document.querySelector('#resp-trans');
-//     while (resp_area.firstChild){
-//         resp_area.removeChild(resp_area.lastChild)
-//     }
-//     while (trans_area.firstChild){
-//         trans_area.removeChild(trans_area.lastChild)
-//     }  
-// }
-
 function closeSession(){
     const close_sess = document.querySelectorAll('.cls-sess');
     close_sess.forEach(function(e){
@@ -197,7 +184,16 @@ function closeSession(){
                 })
             })
             .then( () => {
-                // clearResponse()
+                const resp_area = document.querySelector('#response');
+                const trans_area = document.querySelector('#resp-trans');
+
+                // clear old response if applicable
+                while (resp_area.firstChild){
+                    resp_area.removeChild(resp_area.lastChild)
+                }
+                while (trans_area.firstChild){
+                    trans_area.removeChild(trans_area.lastChild)
+                }
             })
         });
     });
