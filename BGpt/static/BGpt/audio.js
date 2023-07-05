@@ -81,10 +81,13 @@ function conversationLoop(playAudioHandler){
             const formData = new FormData();
             formData.append('audio', blob, 'audio.ogg')
 
+            //check for input lang 
+            inLang = document.querySelector('#lang_selector').value;
+            formData.append('lang', JSON.stringify(inLang));
+
             // check for model selection
             model = document.querySelector('#model_selector').value;
             formData.append('model', JSON.stringify(model));
-            // console.log(model)
 
             // check for title
             const title = document.querySelector('#chat-title').value

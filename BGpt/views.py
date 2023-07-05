@@ -122,15 +122,23 @@ def chat_loop(request):
                 model = whisper.load_model('medium')
             case "large":
                 model = whisper.load_model('large')
-        
-        result = model.transcribe(audio_file, language='bg')
+
+        formLang = json.loads(request.POST.get('lang'))
+        if formLang == 'bg-en':
+            result = model.transcribe(audio_file, language='bg')
+        else:
+            result = model.transcribe(audio_file, language='en')
 
         # drop audio file
         os.remove(audio_file)
 
         # generate response
-        _resp = utils.gen_resp(result['text'])
-        full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
+        _resp = utils.gen_resp(result['text'], formLang)
+
+        if formLang == 'bg-en':
+            full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
+        else:
+            full_trans = GoogleTranslator(source='en', target="bg").translate(_resp)
 
         # split response into words
         words = _resp.split()
@@ -141,16 +149,22 @@ def chat_loop(request):
         # append to list
         for word in words:
             try:
-                translations = GoogleTranslator(source='bg', target="en").translate(word)
+                if formLang == 'bg-en':
+                    translations = GoogleTranslator(source='bg', target="en").translate(word)
+                else:
+                    translations = GoogleTranslator(source='en', target="bg").translate(word)
                 trans.append(translations)
-                
+
             # catch that one ConnectionError I got for some reason
             except ConnectionError:
                 trans.append('?')
                 return JsonResponse({"Error": "GT_RESP"}, status=424)
 
         # Generate TTS file
-        tts = gTTS(f"{_resp}", lang="bg")
+        if formLang == "bg-en":
+            tts = gTTS(f"{_resp}", lang="bg")
+        else:
+            tts = gTTS(f"{_resp}", lang="en")
         tts.save("BGpt/static/BGpt/resp.ogg")
 
         # encode to base 64
