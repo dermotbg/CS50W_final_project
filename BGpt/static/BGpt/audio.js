@@ -1,4 +1,3 @@
-// export {clearResponse};
 document.addEventListener('DOMContentLoaded', () => {
     // handle close session when modal is closed. 
     closeSession();
@@ -86,6 +85,12 @@ function conversationLoop(playAudioHandler){
             model = document.querySelector('#model_selector').value;
             formData.append('model', JSON.stringify(model));
             // console.log(model)
+
+            // check for title
+            const title = document.querySelector('#chat-title').value
+            if (title){
+                formData.append('title', JSON.stringify(title))
+            }
             
             fetch (`/chat_loop`, {
                 method: 'POST',

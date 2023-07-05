@@ -8,6 +8,7 @@ class User(AbstractUser):
 class Chat(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="chatter")
     session = models.IntegerField()
+    title = models.CharField(max_length=100)
     input = models.TextField(max_length=500)
     response = models.TextField(max_length=500)
     trans_resp = models.TextField(max_length=500)

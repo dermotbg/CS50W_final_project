@@ -22,7 +22,13 @@ openai.api_key = os.environ.get('API_KEY')
 
 # Create your views here.
 def index(request):
-    return render(request, "BGpt/index.html")
+    hist = models.Chat.objects.filter(user=request.user).order_by('-session', 'timestamp')
+    # for h in hist:
+    #     print(f"Input: {h.input}, Session: {h.session}")
+    #     print(f"Response: {h.response}, Session: {h.session}")
+    return render(request, "BGpt/index.html", {
+        "history": hist
+    })
 
 def login_view(request):
     if request.method == "POST":
@@ -77,19 +83,18 @@ def register(request):
     
 @csrf_exempt
 @login_required
-# def audio_in(request):
 def chat_loop(request):
+    # reset info on close session
     if request.method == "PUT":
         if request.session['chat_id']:
             request.session['chat_id'] = None
             return JsonResponse({"message": "session_ended"}, status=200)
         else:
             return JsonResponse({"message": "No Session to end"}, status=200)
-        # request.session['last_resp'] = None
     
     
     if request.method == "POST":
-        # check for session id
+        # check for chat session id
         session_id = None
         if request.session['chat_id'] is not None:
                 session_id = request.session['chat_id']
@@ -126,16 +131,20 @@ def chat_loop(request):
         # generate response
         _resp = utils.gen_resp(result['text'])
         full_trans = GoogleTranslator(source='bg', target="en").translate(_resp)
-        # store last resp in session for future session checks. 
-        # request.session['last_resp'] = _resp
 
+        # split response into words
         words = _resp.split()
+
+        # create translation list
         trans = []
 
+        # append to list
         for word in words:
             try:
                 translations = GoogleTranslator(source='bg', target="en").translate(word)
                 trans.append(translations)
+                
+            # catch that one ConnectionError I got for some reason
             except ConnectionError:
                 trans.append('?')
                 return JsonResponse({"Error": "GT_RESP"}, status=424)
@@ -150,12 +159,24 @@ def chat_loop(request):
         # drop TTS file
         os.remove("BGpt/static/BGpt/resp.ogg")
 
-        # store to db
+        # check for previous title and if user gave title
+        t = models.Chat.objects.filter(session=request.session['chat_id']).first()
+        title = request.POST.get('title')
+
+        # see if current title given exists and matches with db title
+        if title and (not t or t.title != title):
+            c = models.Chat.objects.filter(session=request.session['chat_id'])
+            for row in c:
+                row.title = title
+                row.save()
+
+        # write log to db
         log = models.Chat.objects.create(user=request.user,
-                                         session=session_id,
-                                         input=result['text'],
-                                         response=_resp,
-                                         trans_resp=full_trans)
+                                        session=session_id,
+                                        title=title if title else (t.title if t else "Untitled"),
+                                        input=result['text'],
+                                        response=_resp,
+                                        trans_resp=full_trans)
         log.save()
 
         # send b64 response via json
@@ -168,3 +189,6 @@ def chat_loop(request):
                              status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 
+@login_required
+def chat_view(request, chat_id):
+    return render(request, "BGpt/chat.html")

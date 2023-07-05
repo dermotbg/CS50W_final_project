@@ -30,12 +30,18 @@ TODO:
         <button type="button" class="btn-close cls-sess" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h3>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h3>
+        <h6>Please which language you speak, and which language you wish to translate to:</h6>
+        <select name="model" id="lang_selector">
+            <option value="bg-en" selected="selected">BG -> ENG</option>
+            <option value="en-bg">ENG -> BG</option>
+        </select>
+        <h6>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h6>
         <select name="model" id="model_selector">
             <option value="base">Base ~20 seconds response time (Inaccurate)</option>
-            <option value="med">Medium ~1 minute response time (Recommended) </option>
+            <option value="med" selected="selected">Medium ~1 minute response time (Recommended) </option>
             <option value="large">Large ~3 minute response time (Accurate)</option>
         </select>
+        <input type="text" name="title" id="chat-title" placeholder="Give this chat a title?">
         <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
         <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
         <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
@@ -64,6 +70,15 @@ TODO:
         </div>
         <div class="modal-body">
           This is where the last chats will be stored.
+          {% for h in history %}
+          <div class="hist-cont">
+            <div class="chat-cont">
+              <a href="{% url 'view_chat' h.session %}">
+              <div class="chat-session">{% ifchanged %}{{ h.session }}{% endifchanged %}</div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
