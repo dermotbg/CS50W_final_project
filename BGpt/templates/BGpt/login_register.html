@@ -46,11 +46,24 @@
 {% block page_scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+
         const login_btn = document.querySelector("#login");
         const reg_btn = document.querySelector("#register");
         const login = document.querySelector("#login-cont");
         const reg = document.querySelector("#register-cont");
         const message = document.querySelector(".message");
+        var url = window.location.pathname
+
+        if (url === "/register"){
+            message.style.display = 'none';
+            login.style.display = 'none';
+            reg.style.display = 'flex';
+        }
+        else if (url === "/login"){
+            message.style.display = 'none';
+            login.style.display = 'flex';
+            reg.style.display = 'none';
+        }
 
         reg_btn.addEventListener('click', () => {
             message.style.display = 'none';
