@@ -22,13 +22,16 @@ openai.api_key = os.environ.get('API_KEY')
 
 # Create your views here.
 def index(request):
-    hist = models.Chat.objects.filter(user=request.user).order_by('-session', 'timestamp')
+    if request.user.is_authenticated:
+        hist = models.Chat.objects.filter(user=request.user).order_by('-session', 'timestamp')
     # for h in hist:
     #     print(f"Input: {h.input}, Session: {h.session}")
     #     print(f"Response: {h.response}, Session: {h.session}")
-    return render(request, "BGpt/index.html", {
-        "history": hist
-    })
+        return render(request, "BGpt/index.html", {
+            "history": hist
+        })
+    else:
+        return render(request, "BGpt/index.html")
 
 def login_view(request):
     if request.method == "POST":
