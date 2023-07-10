@@ -64,5 +64,28 @@ body #response, body #resp-trans {
   justify-content: flex-start;
   margin: auto;
 }
+body #bgpt-logo-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom, #FFFFFF, #00966E, #D62612);
+}
+body #bgpt-logo-cont h1 {
+  font-size: 10em;
+  color: white;
+}
+body #bgpt-logo-cont h3 {
+  font-size: 3em;
+}
+body #welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+body #welcome h4 {
+  max-width: 50%;
+}
 
 /*# sourceMappingURL=styles.css.map */
