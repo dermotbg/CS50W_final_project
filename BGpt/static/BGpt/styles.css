@@ -87,5 +87,8 @@ body #welcome {
 body #welcome h4 {
   max-width: 50%;
 }
+body .nav .bg-light2 {
+  background-color: white;
+}
 
 /*# sourceMappingURL=styles.css.map */
