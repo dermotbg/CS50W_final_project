@@ -69,11 +69,10 @@ body #bgpt-logo-cont {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to bottom, #FFFFFF, #00966E, #D62612);
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_i6Fof5rOuhRPBSn-OqZWhjn82TCwBw3MXYXSOr9WYwM2JkV-IZcnrx6zO3iGbBRuJs&usqp=CAU);
 }
 body #bgpt-logo-cont h1 {
   font-size: 10em;
-  color: white;
 }
 body #bgpt-logo-cont h3 {
   font-size: 3em;
@@ -86,9 +85,6 @@ body #welcome {
 }
 body #welcome h4 {
   max-width: 50%;
-}
-body .nav .bg-light2 {
-  background-color: white;
 }
 
 /*# sourceMappingURL=styles.css.map */
