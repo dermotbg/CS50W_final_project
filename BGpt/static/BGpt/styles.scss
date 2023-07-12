@@ -108,4 +108,21 @@ body{
     .display-4{
         text-align: center;
     }
+    #card-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 10% 5% 10% 5%;
+        // box-shadow: 10px 10px 10px black;
+        border-radius:  var(--bs-border-radius);
+    }
+    #card-cont > * {
+        box-shadow: 10px 10px 10px black;
+    }
+    @media (max-width: 600px) {
+        #card-cont{
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 }
