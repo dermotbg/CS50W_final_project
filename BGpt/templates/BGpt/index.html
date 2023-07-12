@@ -11,9 +11,25 @@
 </div>
 <div id="index-bod">
   <div id="welcome">
-    <h1>Welcome to BGpt.</h1>
-    <h4>The first iteration of a conversational language learning tool, helping to practise vocalising languages.</h4>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Welcome to BGpt.</h1>
+        <p class="lead">The first iteration of a conversational language learning tool, helping to practise vocalising languages.</p>
+      </div>
+    </div>
 
+    {% if user.is_authenticated %}
+    <!-- Button trigger chat_window modal -->
+    <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_window">
+      Let's Chat!
+    </button>
+    <!-- Button trigger chat_history modal -->
+    <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
+      Load Previous Chat
+    </button>
+    {% else %}
+    <h3><a href="{% url 'login' %}">Login here to start chatting!</a></h3>
+    {% endif %}
   </div>
 
   TODO:
@@ -21,19 +37,7 @@
   <p>framework for audio/mic interface</p>
   <p>user/login/register  interface (modal?)</p>
 
-  {% if user.is_authenticated %}
-  <!-- Button trigger chat_window modal -->
-  <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_window">
-    Let's Chat!
-  </button>
-  <!-- Button trigger chat_history modal -->
-  <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
-    Load Previous Chat
-  </button>
-  {% else %}
-  <h3><a href="{% url 'login' %}">Login here to start chatting!</a></h3>
-  {% endif %}
-  <br>
+
 
   <!-- Start Chatting Modal -->
   <div class="modal fade" id="chat_window" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chat_window" aria-hidden="true">

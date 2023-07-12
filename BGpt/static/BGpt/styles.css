@@ -83,8 +83,8 @@ body #welcome {
   justify-content: flex-start;
   align-items: center;
 }
-body #welcome h4 {
-  max-width: 50%;
+body .display-4 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
