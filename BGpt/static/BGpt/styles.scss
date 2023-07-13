@@ -26,8 +26,12 @@ body{
         }
     }
     .btn-prim:hover{
-        background-color: $red;
-        color: $white;
+        // background-color: $red;
+        // color: $white;
+        box-shadow: 
+            0 0 0 4px $red,
+            0 0 0 8px $green,
+            // 0 0 0 30px $white;
     }
 
     .btn-sec{
@@ -116,14 +120,25 @@ body{
         border-radius:  var(--bs-border-radius);
     }
     #card-cont > * {
-        box-shadow: 10px 10px 10px $green-drk;
+        // box-shadow: 10px 10px 10px $green-drk;
+        border: 0;
+        border-radius: .5em;
+        box-shadow: 
+                0 0 0 10px $red,
+                0 0 0 20px $green,
+                0 0 0 30px $white;
     }
     #start-cont{
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         .card:hover{
-            box-shadow: 10px 10px 10px $red;
+            border: 0;
+            border-radius: .5em;
+        //     box-shadow: 
+        //         0 0 0 2px $red,
+        //         0 0 0 4px $green,
+        //         0 0 0 30px $white;
         }
     }
     #start-cont > * {

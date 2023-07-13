@@ -10,8 +10,7 @@ body .btn-prim .login .register {
   border: 1px, solid, #2b0000;
 }
 body .btn-prim:hover {
-  background-color: #ff2d2d;
-  color: #ffffff;
+  box-shadow: 0 0 0 4px #ff2d2d, 0 0 0 8px #319835;
 }
 body .btn-sec {
   background-color: #ffffff;
@@ -94,7 +93,9 @@ body #card-cont {
   border-radius: var(--bs-border-radius);
 }
 body #card-cont > * {
-  box-shadow: 10px 10px 10px #0f4d32;
+  border: 0;
+  border-radius: 0.5em;
+  box-shadow: 0 0 0 10px #ff2d2d, 0 0 0 20px #319835, 0 0 0 30px #ffffff;
 }
 body #start-cont {
   display: flex;
@@ -102,7 +103,8 @@ body #start-cont {
   justify-content: space-evenly;
 }
 body #start-cont .card:hover {
-  box-shadow: 10px 10px 10px #ff2d2d;
+  border: 0;
+  border-radius: 0.5em;
 }
 body #start-cont > * {
   box-shadow: 10px 10px 10px #0f4d32;
