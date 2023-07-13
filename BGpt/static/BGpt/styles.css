@@ -95,7 +95,7 @@ body #card-cont {
 body #card-cont > * {
   border: 0;
   border-radius: 0.5em;
-  box-shadow: 0 0 0 10px #ff2d2d, 0 0 0 20px #319835, 0 0 0 30px #ffffff;
+  box-shadow: 0 0 0 10px #ff2d2d, 0 0 0 20px #319835;
 }
 body #start-cont {
   display: flex;
@@ -151,7 +151,7 @@ footer {
 }
 
 .navbar-light {
-  box-shadow: 0 0 0 5px #2b0000;
+  box-shadow: 0 0 0 5px #0f4d32;
 }
 
 /*# sourceMappingURL=styles.css.map */
