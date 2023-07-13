@@ -16,20 +16,40 @@
         <h1 class="display-4">Welcome to BGpt.</h1>
         <p class="lead">The first iteration of a conversational language learning tool, helping to practise vocalising languages.</p>
       </div>
-    </div>
+    </div>   
+  </div>
 
-    {% if user.is_authenticated %}
-    <!-- Button trigger chat_window modal -->
-    <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_window">
-      Let's Chat!
-    </button>
-    <!-- Button trigger chat_history modal -->
-    <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
-      Load Previous Chat
-    </button>
-    {% else %}
-    <h3><a href="{% url 'login' %}">Login here to start chatting!</a></h3>
-    {% endif %}
+  <div id="start-cont">
+    <div class="card">
+      <div class="card-body">
+        <h6>
+          Ready to go? 
+        </h6> 
+        <div id="lets-chat">
+          {% if user.is_authenticated %}
+          <!-- Button trigger chat_window modal -->
+          <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_window">
+            Let's Chat!
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">  
+        <h6>
+          Want to revise?
+        </h6>
+        <div id="chat-hist">
+          <!-- Button trigger chat_history modal -->
+          <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
+            Load Previous Chat
+          </button>
+          {% else %}
+          <h3><a href="{% url 'login' %}">Login here to start chatting!</a></h3>
+          {% endif %}
+        </div>
+      </div>
+    </div>  
   </div>
 
   <div id="card-cont">
@@ -60,12 +80,7 @@
       </div>
     </div>
   </div>
-
-  TODO:
-  <p>framework for text interface></p>
-  <p>framework for audio/mic interface</p>
-  <p>user/login/register  interface (modal?)</p>
-
+  
 
 
   <!-- Start Chatting Modal -->
@@ -88,6 +103,7 @@
               <option value="med" selected="selected">Medium ~1 minute response time (Recommended) </option>
               <option value="large">Large ~3 minute response time (Accurate)</option>
           </select>
+          <h6>It's best to give the chat a title, if you wish to revise it later</h6>
           <input type="text" name="title" id="chat-title" placeholder="Give this chat a title?">
           <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
           <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>

@@ -10,7 +10,7 @@ body .btn-prim .login .register {
   border: 1px, solid, #2b0000;
 }
 body .btn-prim:hover {
-  background-color: #2b0000;
+  background-color: #ff2d2d;
   color: #ffffff;
 }
 body .btn-sec {
@@ -90,10 +90,21 @@ body #card-cont {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 5% 5% 10% 5%;
+  margin: 5% 5% 5% 5%;
   border-radius: var(--bs-border-radius);
 }
 body #card-cont > * {
+  box-shadow: 10px 10px 10px #0f4d32;
+}
+body #start-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+body #start-cont .card:hover {
+  box-shadow: 10px 10px 10px #ff2d2d;
+}
+body #start-cont > * {
   box-shadow: 10px 10px 10px #0f4d32;
 }
 @media (max-width: 600px) {
@@ -109,10 +120,26 @@ body #card-cont > * {
 .card-body {
   max-width: 500px;
 }
+.card-body h6 {
+  text-align: center;
+}
 
 #navbarNavAltMarkup {
   justify-content: center;
   padding: 0 5% 0 5%;
+}
+
+.modal-content {
+  display: flex;
+  justify-content: center;
+}
+.modal-content .modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body * {
+  margin: 8px;
 }
 
 /*# sourceMappingURL=styles.css.map */

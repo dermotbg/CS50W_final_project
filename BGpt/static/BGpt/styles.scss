@@ -26,7 +26,7 @@ body{
         }
     }
     .btn-prim:hover{
-        background-color: $black;
+        background-color: $red;
         color: $white;
     }
 
@@ -112,12 +112,24 @@ body{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin: 5% 5% 10% 5%;
+        margin: 5% 5% 5% 5%;
         border-radius:  var(--bs-border-radius);
     }
     #card-cont > * {
         box-shadow: 10px 10px 10px $green-drk;
     }
+    #start-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        .card:hover{
+            box-shadow: 10px 10px 10px $red;
+        }
+    }
+    #start-cont > * {
+        box-shadow: 10px 10px 10px $green-drk;
+    }
+    
     @media (max-width: 600px) {
         #card-cont{
             flex-direction: column;
@@ -131,8 +143,23 @@ body{
 }
 .card-body{
     max-width: 500px;
+    h6{
+        text-align: center;
+    }
 }
 #navbarNavAltMarkup{
     justify-content: center;
     padding: 0 5% 0 5%
+}
+
+.modal-content{
+    display: flex;
+    justify-content: center;
+    .modal-body{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.modal-body * {
+    margin: 8px;
 }
