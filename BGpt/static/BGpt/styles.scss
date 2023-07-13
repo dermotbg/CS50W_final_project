@@ -113,11 +113,10 @@ body{
         flex-direction: row;
         justify-content: space-between;
         margin: 10% 5% 10% 5%;
-        // box-shadow: 10px 10px 10px black;
         border-radius:  var(--bs-border-radius);
     }
     #card-cont > * {
-        box-shadow: 10px 10px 10px black;
+        box-shadow: 10px 10px 10px $green-drk;
     }
     @media (max-width: 600px) {
         #card-cont{
@@ -125,4 +124,8 @@ body{
             align-items: center;
         }
     }
+    
+}
+.card-body{
+    max-width: 400px;
 }

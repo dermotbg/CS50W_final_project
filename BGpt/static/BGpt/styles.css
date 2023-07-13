@@ -94,13 +94,17 @@ body #card-cont {
   border-radius: var(--bs-border-radius);
 }
 body #card-cont > * {
-  box-shadow: 10px 10px 10px black;
+  box-shadow: 10px 10px 10px #0f4d32;
 }
 @media (max-width: 600px) {
   body #card-cont {
     flex-direction: column;
     align-items: center;
   }
+}
+
+.card-body {
+  max-width: 400px;
 }
 
 /*# sourceMappingURL=styles.css.map */
