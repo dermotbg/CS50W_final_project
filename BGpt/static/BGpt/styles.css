@@ -137,5 +137,8 @@ body #start-cont > * {
   display: flex;
   flex-direction: column;
 }
+.modal-content .modal-body .spinner-border {
+  display: none;
+}
 
 /*# sourceMappingURL=styles.css.map */

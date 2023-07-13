@@ -158,8 +158,9 @@ body{
     .modal-body{
         display: flex;
         flex-direction: column;
+        .spinner-border {
+            display: none;
+        }
     }
 }
-// .modal-body * {
-//     margin: 8px;
-// }
+

@@ -71,6 +71,11 @@ function conversationLoop(playAudioHandler){
 
         // convert to blob
         media_rec.onstop = () => {
+
+            // load spinner
+            const spin = document.querySelector('.spinner-border');
+            spin.style.display = 'inline-block';
+
             // create blob with the required specs
             const blob = new Blob(data, {'type': 'audio/ogg; codecs=opus'});
 
@@ -102,6 +107,9 @@ function conversationLoop(playAudioHandler){
             .then(response => response.json())
             // console.log(response))
             .then(data => {
+                // remove spinner
+                spin.style.display = 'none';
+                
                 // initialise required variables
                 const resp_area = document.querySelector('#response');
                 const trans_area = document.querySelector('#resp-trans');
