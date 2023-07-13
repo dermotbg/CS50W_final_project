@@ -90,7 +90,7 @@ body #card-cont {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 10% 5% 10% 5%;
+  margin: 5% 5% 10% 5%;
   border-radius: var(--bs-border-radius);
 }
 body #card-cont > * {
@@ -101,10 +101,18 @@ body #card-cont > * {
     flex-direction: column;
     align-items: center;
   }
+  body .card {
+    margin-bottom: 50px;
+  }
 }
 
 .card-body {
-  max-width: 400px;
+  max-width: 500px;
+}
+
+#navbarNavAltMarkup {
+  justify-content: center;
+  padding: 0 5% 0 5%;
 }
 
 /*# sourceMappingURL=styles.css.map */
