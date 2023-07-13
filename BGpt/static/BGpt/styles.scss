@@ -180,3 +180,10 @@ footer{
     justify-content: center;
     align-items: center;
 }
+
+.navbar-light{
+    box-shadow: 
+        0 0 0 5px $black,
+        // 0 0 0 20px $green,
+        // 0 0 0 30px $white;
+}
