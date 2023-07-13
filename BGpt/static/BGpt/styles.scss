@@ -135,10 +135,6 @@ body{
         .card:hover{
             border: 0;
             border-radius: .5em;
-        //     box-shadow: 
-        //         0 0 0 2px $red,
-        //         0 0 0 4px $green,
-        //         0 0 0 30px $white;
         }
     }
     #start-cont > * {
@@ -178,4 +174,9 @@ body{
         }
     }
 }
-
+footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
