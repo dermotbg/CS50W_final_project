@@ -121,6 +121,23 @@ body #start-cont .card:hover {
 body #start-cont > * {
   box-shadow: 10px 10px 10px #0f4d32;
 }
+body #chat-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  border: solid 2px;
+  border-bottom: 0;
+}
+body #chat-cont a {
+  display: inline-block;
+}
+body #chat-cont .chat-session {
+  display: inline;
+}
+body #chat-cont:last-child {
+  border-bottom: solid 2px;
+}
 @media (max-width: 600px) {
   body #card-cont {
     flex-direction: column;

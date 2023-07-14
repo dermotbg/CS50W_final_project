@@ -24,11 +24,15 @@ openai.api_key = os.environ.get('API_KEY')
 def index(request):
     if request.user.is_authenticated:
         hist = models.Chat.objects.filter(user=request.user).order_by('-session', 'timestamp')
-    # for h in hist:
-    #     print(f"Input: {h.input}, Session: {h.session}")
-    #     print(f"Response: {h.response}, Session: {h.session}")
+        rev_hist = []
+        d_hist = set()
+        for h in hist:
+            if h.session not in d_hist:
+                d_hist.add(h.session)
+                rev_hist.append({'session':h.session, "title": h.title, "timestamp": h.timestamp})
+                print(rev_hist)
         return render(request, "BGpt/index.html", {
-            "history": hist
+            "history": rev_hist[0:5]
         })
     else:
         return render(request, "BGpt/index.html")

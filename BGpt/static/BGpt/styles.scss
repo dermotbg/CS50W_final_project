@@ -148,6 +148,23 @@ body{
     #start-cont > * {
         box-shadow: 10px 10px 10px $green-drk;
     }
+    #chat-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end;
+        border: solid 2px;
+        border-bottom: 0;
+        a{
+            display: inline-block;
+        }
+        .chat-session{
+            display: inline;
+        }
+    }
+    #chat-cont:last-child{
+        border-bottom: solid 2px;
+    }
     
     @media (max-width: 600px) {
         #card-cont{
