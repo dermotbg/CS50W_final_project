@@ -22,7 +22,10 @@
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <button type="submit" class="btn btn-prim">Submit</button>
+        <div class="btn-cont btn-reg">
+            <button type="submit" class="btn btn-prim">Submit</button>
+            <a href="{% url 'index' %}" class="btn btn-prim">Cancel</a>
+        </div>
     </form>
 </div>
 
@@ -36,7 +39,10 @@
         <div class="form-group">
             <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-prim">Submit</button>
+        <div class="btn-cont btn-reg">
+            <button type="submit" class="btn btn-prim">Submit</button>
+            <a href="{% url 'index' %}" class="btn btn-prim">Cancel</a>
+        </div>
     </form>
 </div>
 <div class="message">

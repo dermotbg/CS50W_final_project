@@ -48,6 +48,13 @@ body .btn-cont {
   flex-direction: row;
   justify-content: center;
 }
+body .btn-cont a {
+  text-decoration: none;
+}
+body .btn-reg {
+  justify-content: space-between;
+  padding: 5% 5% 5% 5%;
+}
 body .message {
   display: flex;
   flex-direction: row;
