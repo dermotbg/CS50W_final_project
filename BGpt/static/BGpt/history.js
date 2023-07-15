@@ -10,14 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // hide any open chats
             const allChats = document.querySelectorAll('.list-group-responses li');
             allChats.forEach(log => {
-                log.style.display = 'none';
+              log.style.display = 'none';
             });
 
             // display active chat
             const actChat = document.querySelectorAll(`.list-group-responses li[data-id="${chatSession}"]`);
             actChat.forEach(log => {
-                console.log(log);
                 log.style.display = 'block';
+                if (log.id.includes('resp')) {
+                  log.style['text-align'] = 'right';
+                };  
             })
         });
     })

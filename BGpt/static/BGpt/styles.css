@@ -154,6 +154,7 @@ body .title-list {
 }
 body .list-group-responses > * {
   display: none;
+  border: solid 2px #ff2d2d;
 }
 body .list-group-item:hover {
   background-color: #319835;

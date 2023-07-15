@@ -181,6 +181,7 @@ body{
     }
     .list-group-responses > *{
         display: none;
+        border: solid 2px $red;
     }
     .list-group-item:hover{
         background-color: $green;
