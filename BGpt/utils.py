@@ -1,6 +1,7 @@
 import openai
 import os
 import base64 
+from . import models
 
 from django.conf import settings
 
@@ -51,3 +52,18 @@ def encode_resp(response_path):
         data = _tts.read()
         tts_base64 = base64.b64encode(data).decode('utf-8')
         return tts_base64
+
+def gather_hist(user_id):
+        hist = models.Chat.objects.filter(user=user_id).order_by('-session', 'timestamp')
+        rev_hist = []
+        d_hist = set()
+        for h in hist:
+            if h.session not in d_hist:
+                d_hist.add(h.session)
+                rev_hist.append({"user":h.user, 
+                                 "session":h.session, 
+                                 "title": h.title,
+                                 "input": h.input,
+                                 "response": h.trans_resp, 
+                                 "timestamp": h.timestamp})
+        return(rev_hist)

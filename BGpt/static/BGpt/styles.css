@@ -128,6 +128,8 @@ body #chat-cont {
   align-items: end;
   border: solid 2px;
   border-bottom: 0;
+  border-radius: 0.5em;
+  padding: 10px 10px 10px 10px;
 }
 body #chat-cont a {
   display: inline-block;

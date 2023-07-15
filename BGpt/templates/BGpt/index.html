@@ -144,7 +144,7 @@
             {% for h in history %}
             <div id="chat-cont"> 
               <div class="chat-session" hidden >{{ h.session }}</div>
-              <div class="chat-session">{{ h.timestamp | date:"SHORT_DATE_FORMAT" }}</div>
+              <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
               <div class="chat-session">{{ h.title }}</div>
               <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
             </div>
@@ -152,6 +152,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          <a href="{% url 'history' user.id %}" class="btn btn-sec">View Full history</a>
           <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
           <!-- <button type="button" class="btn btn-prim">Save changes</button> -->
         </div>

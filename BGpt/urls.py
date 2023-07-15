@@ -7,6 +7,7 @@ urlpatterns =[
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("chat/<int:chat_id>", views.chat_view, name="view_chat"),
+    path("history/<int:user_id>", views.history_view, name="history"),
 
 
     # API's

@@ -22,15 +22,9 @@ openai.api_key = os.environ.get('API_KEY')
 
 # Create your views here.
 def index(request):
+    # mini-history function
     if request.user.is_authenticated:
-        hist = models.Chat.objects.filter(user=request.user).order_by('-session', 'timestamp')
-        rev_hist = []
-        d_hist = set()
-        for h in hist:
-            if h.session not in d_hist:
-                d_hist.add(h.session)
-                rev_hist.append({'session':h.session, "title": h.title, "timestamp": h.timestamp})
-                print(rev_hist)
+        rev_hist = utils.gather_hist(request.user)
         return render(request, "BGpt/index.html", {
             "history": rev_hist[0:5]
         })
@@ -228,3 +222,12 @@ def chat_loop(request):
 @login_required
 def chat_view(request, chat_id):
     return render(request, "BGpt/chat.html")
+
+@login_required
+def history_view(request, user_id):
+
+    full_hist = utils.gather_hist(user_id)
+
+    return render(request, "BGpt/history.html", {
+        "history": full_hist
+    })
