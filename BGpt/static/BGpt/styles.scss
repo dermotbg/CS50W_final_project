@@ -176,17 +176,24 @@ body{
             margin-bottom: 50px;
         }
     }
-    .hist-list{
-    --bs-list-group-bg: var(--bs-body-bg);
-    --bs-list-group-border-color: var(--bs-border-color);
-    --bs-list-group-border-width: var(--bs-border-width);
-    --bs-list-group-item-padding-x: 1rem;
-    --bs-list-group-item-padding-y: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    // padding-left: 0;
-    // margin-bottom: 0;
-    // background-color: $green;
+    .title-list{
+        list-style: none;
+    }
+    .list-group-item{
+        border-radius: 0;
+    }
+    .list-group-item:hover{
+        background-color: $green;
+        color: $white;
+        
+    }
+    .inp{
+        list-style: none;
+        border: 5px solid $red;
+    }
+    .resp{
+        list-style: none;
+        border: 5px solid $red;
     }
     
 }

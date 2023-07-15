@@ -2,24 +2,25 @@
 {% load static %}
 
 {% block body %} 
-
 <div class="row">
     <div class="col-4">
-      <div class="hist-list" id="list-tab" role="tablist">
-        {% for h in history %}
-        <a class="list-group-item list-group-item-action chat-instance" id="ch-{{ h.session }}" data-bs-toggle="list" href="#list-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">{{ h.title }}</a>
-
-        {% endfor %}
-      </div>
+        <ul class="list-group">
+            {% for h in history %}
+            <a class="list-group-item" id="ch-{{ h.session }}" href="#list-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">
+                <li class="title-list">{{ h.title }}</li>    
+            </a>
+            {% endfor %}
+        </ul>
     </div>
 
-    <!-- <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-{{ h.session }}" role="tabpanel" aria-labelledby="list-{{ h.session }}-list">
-            <div class="inpt">{{ h.input }}</div>
-            <div class="resp">{{ h.response }}</div>
-        </div>
-      </div> -->
+    <div class="col-8">
+        <ul class="list-group">
+            {% for h in history %}
+            <li class="inp" id="inp-{{ h.session }}">{{ h.input }}</li>
+            <li class="resp" id="resp-{{ h.session }}">{{ h.response }}</li>
+            {% endfor %}
+        </ul>
     </div>
-  </div>
+</div>
+
 {% endblock %}

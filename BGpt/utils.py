@@ -57,6 +57,7 @@ def gather_hist(user_id):
         hist = models.Chat.objects.filter(user=user_id).order_by('-session', 'timestamp')
         rev_hist = []
         d_hist = set()
+        # add first session input/response
         for h in hist:
             if h.session not in d_hist:
                 d_hist.add(h.session)
@@ -64,6 +65,18 @@ def gather_hist(user_id):
                                  "session":h.session, 
                                  "title": h.title,
                                  "input": h.input,
-                                 "response": h.trans_resp, 
+                                 "response": h.response, 
+                                 "trans_resp": h.trans_resp,
                                  "timestamp": h.timestamp})
+            # catch ongoing inputs/responses 
+            elif h.session in d_hist and h.pk not in d_hist:
+                d_hist.add(h.pk)
+                rev_hist.append({"user":h.user, 
+                                 "session":h.session, 
+                                 "title": h.title,
+                                 "input": h.input,
+                                 "response": h.response, 
+                                 "trans_resp": h.trans_resp,
+                                 "timestamp": h.timestamp})
+        print(d_hist)
         return(rev_hist)
