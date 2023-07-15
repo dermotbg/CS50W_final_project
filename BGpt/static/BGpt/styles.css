@@ -149,6 +149,15 @@ body #chat-cont:last-child {
     margin-bottom: 50px;
   }
 }
+body .hist-list {
+  --bs-list-group-bg: var(--bs-body-bg);
+  --bs-list-group-border-color: var(--bs-border-color);
+  --bs-list-group-border-width: var(--bs-border-width);
+  --bs-list-group-item-padding-x: 1rem;
+  --bs-list-group-item-padding-y: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
 
 .card-body {
   max-width: 500px;

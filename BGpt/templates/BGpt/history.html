@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-4">
-      <div class="list-group" id="list-tab" role="tablist">
+      <div class="hist-list" id="list-tab" role="tablist">
         {% for h in history %}
         <a class="list-group-item list-group-item-action chat-instance" id="ch-{{ h.session }}" data-bs-toggle="list" href="#list-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">{{ h.title }}</a>
 
@@ -13,13 +13,13 @@
       </div>
     </div>
 
-    <div class="col-8">
+    <!-- <div class="col-8">
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-{{ h.session }}" role="tabpanel" aria-labelledby="list-{{ h.session }}-list">
             <div class="inpt">{{ h.input }}</div>
             <div class="resp">{{ h.response }}</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 {% endblock %}
