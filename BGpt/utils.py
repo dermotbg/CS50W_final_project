@@ -67,7 +67,8 @@ def gather_hist(user_id):
                                  "input": h.input,
                                  "response": h.response, 
                                  "trans_resp": h.trans_resp,
-                                 "timestamp": h.timestamp})
+                                 "timestamp": h.timestamp,
+                                 "pk": h.pk})
             # catch ongoing inputs/responses 
             elif h.session in d_hist and h.pk not in d_hist:
                 d_hist.add(h.pk)
@@ -77,6 +78,6 @@ def gather_hist(user_id):
                                  "input": h.input,
                                  "response": h.response, 
                                  "trans_resp": h.trans_resp,
-                                 "timestamp": h.timestamp})
-        print(d_hist)
+                                 "timestamp": h.timestamp,
+                                 "pk": h.pk})
         return(rev_hist)

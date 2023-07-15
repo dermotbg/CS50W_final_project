@@ -179,8 +179,8 @@ body{
     .title-list{
         list-style: none;
     }
-    .list-group-item{
-        border-radius: 0;
+    .list-group-responses > *{
+        display: none;
     }
     .list-group-item:hover{
         background-color: $green;

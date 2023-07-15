@@ -152,8 +152,8 @@ body #chat-cont:last-child {
 body .title-list {
   list-style: none;
 }
-body .list-group-item {
-  border-radius: 0;
+body .list-group-responses > * {
+  display: none;
 }
 body .list-group-item:hover {
   background-color: #319835;

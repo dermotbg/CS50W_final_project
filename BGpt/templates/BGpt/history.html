@@ -6,21 +6,26 @@
     <div class="col-4">
         <ul class="list-group">
             {% for h in history %}
-            <a class="list-group-item" id="ch-{{ h.session }}" href="#list-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">
+            {% ifchanged %}
+            <a class="list-group-item" data-id="ch-{{ h.session }}" href="#chat-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">
                 <li class="title-list">{{ h.title }}</li>    
             </a>
+            {% endifchanged %}
             {% endfor %}
         </ul>
     </div>
 
     <div class="col-8">
-        <ul class="list-group">
+        <ul class="list-group list-group-responses">
             {% for h in history %}
-            <li class="inp" id="inp-{{ h.session }}">{{ h.input }}</li>
-            <li class="resp" id="resp-{{ h.session }}">{{ h.response }}</li>
+            <li id="inp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.input }}</li>
+            <li id="resp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.response }}</li>
             {% endfor %}
         </ul>
     </div>
 </div>
 
+{% endblock %}
+{% block page_scripts %}
+<script src="/static/BGpt/history.js"></script>
 {% endblock %}
