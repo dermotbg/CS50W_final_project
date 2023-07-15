@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -227,7 +228,10 @@ def chat_view(request, chat_id):
 def history_view(request, user_id):
 
     full_hist = utils.gather_hist(user_id)
+    paginator = Paginator(full_hist, 10)
+    page_num = request.GET.get("page")
+    page_obj = paginator.get_page(page_num)
 
     return render(request, "BGpt/history.html", {
-        "history": full_hist
+        "history": page_obj
     })
