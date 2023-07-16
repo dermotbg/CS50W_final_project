@@ -97,7 +97,8 @@ def chat_loop(request):
     if request.method == "POST":
         # check for chat session id
         session_id = None
-        if request.session['chat_id'] is not None:
+        # if request.session['chat_id'] is not None:
+        if 'chat_id' in request.session:
             try: 
                 request.session['chat_id']
                 session_id = request.session['chat_id']
