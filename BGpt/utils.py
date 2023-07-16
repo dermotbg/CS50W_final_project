@@ -8,6 +8,7 @@ from django.conf import settings
 
 def save_audio(audio_file):
     # should have random string generator for filename? 
+    # TODO contemplate returning to temp file iteration again
     audio_file_path = os.path.join(settings.MEDIA_ROOT, 'BGpt/static/BGpt', audio_file.name)
     with open(audio_file_path, 'wb') as f:
         for chunk in audio_file.chunks():
@@ -71,5 +72,5 @@ def gather_hist(user_id):
             if session not in d_hist:
                 d_hist.add(session)
                 rev_hist.append(session_group)
-                
+
         return(rev_hist)
