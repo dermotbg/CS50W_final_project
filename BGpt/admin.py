@@ -5,7 +5,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ("pk", "username")
 
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ("session", "user", "timestamp")
+    list_display = ("session", "user", "timestamp", "title")
 
 # Register your models here.
 admin.site.register(User, UserAdmin)

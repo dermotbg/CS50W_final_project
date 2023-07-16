@@ -2,6 +2,7 @@ import openai
 import os
 import base64 
 from . import models
+from itertools import groupby
 
 from django.conf import settings
 
@@ -57,27 +58,18 @@ def gather_hist(user_id):
         hist = models.Chat.objects.filter(user=user_id).order_by('-session', 'timestamp')
         rev_hist = []
         d_hist = set()
-        # add first session input/response
-        for h in hist:
-            if h.session not in d_hist:
-                d_hist.add(h.session)
-                rev_hist.append({"user":h.user, 
-                                 "session":h.session, 
-                                 "title": h.title,
-                                 "input": h.input,
-                                 "response": h.response, 
-                                 "trans_resp": h.trans_resp,
-                                 "timestamp": h.timestamp,
-                                 "pk": h.pk})
-            # catch ongoing inputs/responses 
-            elif h.session in d_hist and h.pk not in d_hist:
-                d_hist.add(h.pk)
-                rev_hist.append({"user":h.user, 
-                                 "session":h.session, 
-                                 "title": h.title,
-                                 "input": h.input,
-                                 "response": h.response, 
-                                 "trans_resp": h.trans_resp,
-                                 "timestamp": h.timestamp,
-                                 "pk": h.pk})
+        #  revision attempt using groupby()
+
+        # iterables for each session and each group of sessions
+        # given expression into the groupby is "x.session" which is the individual session id's in hist.
+        for session, group in groupby(hist, lambda x: x.session):
+
+            # add groups of sessions to lists where applicable 
+            session_group = list(group)
+
+            # append if session has not been appended
+            if session not in d_hist:
+                d_hist.add(session)
+                rev_hist.append(session_group)
+                
         return(rev_hist)

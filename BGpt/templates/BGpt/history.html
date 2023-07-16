@@ -5,12 +5,14 @@
 <div class="row">
     <div class="col-4 text-truncate">
         <ul class="list-group">
-            {% for h in history %}
-            {% ifchanged %}
-            <a class="list-group-item" data-id="ch-{{ h.session }}" href="#chat-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">
-                <li class="title-list">{{ h.title }}</li>    
-            </a>
-            {% endifchanged %}
+            {% for sessions in history %}
+                {% for h in sessions %}
+                    {% ifchanged %}
+                    <a class="list-group-item" data-id="ch-{{ h.session }}" href="#chat-{{ h.session }}" role="tab" aria-controls="list-{{ h.session }}">
+                        <li class="title-list">{{ h.title }}</li>    
+                    </a>
+                    {% endifchanged %}
+                {% endfor %}
             {% endfor %}
         </ul>
 
@@ -34,9 +36,11 @@
 
     <div class="col-8">
         <ul class="list-group list-group-responses">
-            {% for h in history %}
-            <li id="inp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.input }}</li>
-            <li id="resp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.response }}</li>
+            {% for sessions in history %}
+                {% for h in sessions %}
+                <li id="inp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.input }}</li>
+                <li id="resp{{ h.pk }}" data-id="ch-{{ h.session }}">{{ h.response }}</li>
+                {% endfor %}
             {% endfor %}
         </ul>
     </div>

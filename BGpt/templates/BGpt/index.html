@@ -141,13 +141,16 @@
         <div class="modal-body">
           This is where the last chats will be stored.
           <div class="hist-cont">
-            {% for h in history %}
-            <div id="chat-cont"> 
-              <div class="chat-session" hidden >{{ h.session }}</div>
-              <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
-              <div class="chat-session">{{ h.title }}</div>
-              <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
-            </div>
+            <!-- first for loop is session groups, second is entries -->
+            {% for sessions in history %}
+              {% for h in sessions %}
+              <div id="chat-cont"> 
+                <div class="chat-session" hidden >{{ h.session }}</div>
+                <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
+                <div class="chat-session">{{ h.title }}</div>
+                <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
+              </div>
+              {% endfor %}
             {% endfor %}
           </div>
         </div>
