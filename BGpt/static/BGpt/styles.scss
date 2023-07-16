@@ -166,6 +166,19 @@ body{
     #chat-cont:last-child{
         border-bottom: solid 2px;
     }
+
+    .pagination{
+        justify-content: center;
+        text-decoration: none;
+        li{
+            text-align: center;
+            min-width: 50%;
+        }
+        .page-link{
+            text-decoration: none;
+            color: $black;
+        }
+    }
     
     @media (max-width: 600px) {
         #card-cont{
@@ -183,13 +196,6 @@ body{
         white-space: nowrap;
         list-style: none;
     }
-    // .list-group-item{
-    //     // display: inline;
-    //     max-width: 100%;
-    //     overflow: hidden;
-    //     text-overflow: ellipsis;
-    //     white-space: nowrap;
-    // }
     .list-group-responses > *{
         display: none;
         border: solid 2px $red;
@@ -197,7 +203,6 @@ body{
     .list-group-item:hover{
         background-color: $green;
         color: $white;
-        
     }
     .inp{
         list-style: none;
@@ -229,12 +234,6 @@ body{
         .spinner-border {
             display: none;
         }
-    }
-    .paginatot
-    .pagination{
-        --bs-pagination-padding-x: 0.62rem;
-        --bs-pagination-padding-y: 0.375rem;
-        --bs-pagination-font-size: 1rem;
     }
 }
 footer{

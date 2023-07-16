@@ -140,6 +140,18 @@ body #chat-cont .chat-session {
 body #chat-cont:last-child {
   border-bottom: solid 2px;
 }
+body .pagination {
+  justify-content: center;
+  text-decoration: none;
+}
+body .pagination li {
+  text-align: center;
+  min-width: 50%;
+}
+body .pagination .page-link {
+  text-decoration: none;
+  color: #2b0000;
+}
 @media (max-width: 600px) {
   body #card-cont {
     flex-direction: column;
@@ -195,11 +207,6 @@ body .resp {
 }
 .modal-content .modal-body .spinner-border {
   display: none;
-}
-.modal-content .paginatot .pagination {
-  --bs-pagination-padding-x: 0.62rem;
-  --bs-pagination-padding-y: 0.375rem;
-  --bs-pagination-font-size: 1rem;
 }
 
 footer {
