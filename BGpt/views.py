@@ -221,9 +221,9 @@ def chat_loop(request):
                              status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 
-@login_required
-def chat_view(request, chat_id):
-    return render(request, "BGpt/chat.html")
+# @login_required
+# def chat_view(request, chat_id):
+#     return render(request, "BGpt/chat.html")
 
 @login_required
 def history_view(request, user_id):

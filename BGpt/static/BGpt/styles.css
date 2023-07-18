@@ -168,6 +168,11 @@ body .title-list {
   white-space: nowrap;
   list-style: none;
 }
+body .list-group {
+  max-height: 480px;
+  overflow-y: scroll;
+  border: none;
+}
 body .list-group-responses > * {
   display: none;
   padding: 5px 5px 5px 5px;
@@ -245,6 +250,22 @@ footer {
   margin-left: var(--t);
   place-self: end;
   box-shadow: 0 0 0 10px #ff2d2d, 0 0 0 20px #319835;
+}
+
+.tstamp-r, .tstamp-l {
+  --_d: 0%;
+  border-left: var(--t) solid rgba(0, 0, 0, 0);
+  margin: var(--t);
+  color: grey;
+  font-size: small;
+}
+
+.tstamp-l {
+  place-self: start;
+}
+
+.tstamp-r {
+  place-self: end;
 }
 
 /*# sourceMappingURL=styles.css.map */

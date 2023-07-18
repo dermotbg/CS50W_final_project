@@ -38,7 +38,9 @@
         <ul class="list-group list-group-responses">
             {% for sessions in history %}
                 {% for h in sessions %}
+                <li id="inp{{ h.pk }}" data-id="ch-{{ h.session }}" class="tstamp-l">{{ user.username }} at {{ h.timestamp }}</li>
                 <li id="inp{{ h.pk }}" class="bubble left" data-id="ch-{{ h.session }}">{{ h.input }}</li>
+                <li id="resp{{ h.pk }}" data-id="ch-{{ h.session }}" class="tstamp-r">Response at {{ h.timestamp }}</li>
                 <li id="resp{{ h.pk }}" class="bubble right" data-id="ch-{{ h.session }}">{{ h.response }}</li>
                 {% endfor %}
             {% endfor %}

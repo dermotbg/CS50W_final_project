@@ -196,6 +196,11 @@ body{
         white-space: nowrap;
         list-style: none;
     }
+    .list-group{
+        max-height: 480px;
+        overflow-y: scroll;
+        border: none;
+    }
     .list-group-responses > *{
         display: none;
         padding: 5px 5px 5px 5px;
@@ -265,7 +270,7 @@ footer{
         calc(var(--r)/-2) calc(var(--r)/-2) padding-box, 
       radial-gradient(50% 50%,#000 98%,#0000 101%) 
         0 0/var(--r) var(--r) space padding-box;
-        
+
         mask: radial-gradient(var(--t) at var(--_d) 0,#0000 98%,#000 102%) 
         var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat,
       conic-gradient(at var(--r) var(--r),#000 75%,#0000 0) 
@@ -291,3 +296,18 @@ footer{
                 0 0 0 10px $red,
                 0 0 0 20px $green;
   }
+  %tstamp{
+    --_d: 0%;
+    border-left: var(--t) solid #0000;
+    margin: var(--t);
+    color: grey;
+    font-size: small;
+}
+.tstamp-l{
+    @extend %tstamp;
+    place-self: start;
+}
+.tstamp-r{
+    @extend %tstamp;
+    place-self: end;
+}
