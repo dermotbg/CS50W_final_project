@@ -227,6 +227,7 @@ footer {
   padding: calc(2 * var(--r) / 3);
   margin: calc(2 * var(--r) / 4);
   -webkit-mask: radial-gradient(var(--t) at var(--_d) 0, rgba(0, 0, 0, 0) 98%, #000 102%) var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat, conic-gradient(at var(--r) var(--r), #000 75%, rgba(0, 0, 0, 0) 0) calc(var(--r) / -2) calc(var(--r) / -2) padding-box, radial-gradient(50% 50%, #000 98%, rgba(0, 0, 0, 0) 101%) 0 0/var(--r) var(--r) space padding-box;
+  mask: radial-gradient(var(--t) at var(--_d) 0, rgba(0, 0, 0, 0) 98%, #000 102%) var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat, conic-gradient(at var(--r) var(--r), #000 75%, rgba(0, 0, 0, 0) 0) calc(var(--r) / -2) calc(var(--r) / -2) padding-box, radial-gradient(50% 50%, #000 98%, rgba(0, 0, 0, 0) 101%) 0 0/var(--r) var(--r) space padding-box;
   background: #319835;
   color: #ffffff;
 }

@@ -150,7 +150,7 @@
                   <div class="chat-session" hidden >{{ h.session }}</div>
                   <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
                   <div class="chat-session">{{ h.title }}</div>
-                  <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
+                  <a class="btn btn-prim" href="{% url 'history' user.id %}#{{h.session }}"><div class="chat-session">Open</div></a>
                 </div>
                 {% endfor %}
               {% endfor %}
