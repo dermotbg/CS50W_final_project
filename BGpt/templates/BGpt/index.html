@@ -131,38 +131,41 @@
 
     
   <!-- Chat History Modal -->
-  <div class="modal fade" id="chat_history" tabindex="-1" aria-labelledby="chat_history" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Chat History</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          This is where the last chats will be stored.
-          <div class="hist-cont">
-            <!-- first for loop is session groups, second is entries -->
-            {% for sessions in history %}
-              {% for h in sessions %}
-              <div id="chat-cont"> 
-                <div class="chat-session" hidden >{{ h.session }}</div>
-                <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
-                <div class="chat-session">{{ h.title }}</div>
-                <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
-              </div>
-              {% endfor %}
-            {% endfor %}
+  {% if user.is_authenticated %}
+    <div class="modal fade" id="chat_history" tabindex="-1" aria-labelledby="chat_history" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Chat History</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </div>
-        <div class="modal-footer">
-          <a href="{% url 'history' user.id %}" class="btn btn-sec">View Full history</a>
-          <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
-          <!-- <button type="button" class="btn btn-prim">Save changes</button> -->
+          <div class="modal-body">
+            This is where the last chats will be stored.
+            
+            <div class="hist-cont">
+              <!-- first for loop is session groups, second is entries -->
+              {% for sessions in history %}
+                {% for h in sessions %}
+                <div id="chat-cont"> 
+                  <div class="chat-session" hidden >{{ h.session }}</div>
+                  <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
+                  <div class="chat-session">{{ h.title }}</div>
+                  <a class="btn btn-prim" href="{% url 'view_chat' h.session %}"><div class="chat-session">Open</div></a>
+                </div>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="{% url 'history' user.id %}" class="btn btn-sec">View Full history</a>
+            <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-prim">Save changes</button> -->
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+{% endif %}
 {% endblock %}
 
 
