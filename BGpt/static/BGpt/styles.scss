@@ -109,6 +109,18 @@ body{
         h3{
             font-size: 3em;
         }
+        @media (max-width: 600px) {
+            background-size: 40%;
+            h1{
+                font-size: 5em;
+                margin-bottom: 0;
+                
+            }
+            h3{
+                font-size: 2em;
+                margin-bottom: 0;
+            }
+        }
         
     }
     #welcome{
