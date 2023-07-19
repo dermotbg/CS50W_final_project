@@ -236,3 +236,20 @@ def history_view(request, user_id):
     return render(request, "BGpt/history.html", {
         "history": page_obj
     })
+
+@login_required
+def edit(request, inp_id):
+    try:
+        inp = models.Chat.objects.get(pk=inp_id)
+    except:
+        models.Chat.DoesNotExist
+        return JsonResponse({"message": "Invalid Payload"}, status=400)
+    if inp.user != request.user:
+        return JsonResponse({"message": "Unauthorized User"}, status=403)
+    if request.method == "PUT":
+        data = json.loads(request.body.decode('utf-8'))
+        inp.body = data["post_bod"]
+        inp.save()
+        return HttpResponse(status=204)
+    elif request.method != "PUT":
+        return JsonResponse({"message": "Must be PUT request"}, status=400)

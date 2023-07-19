@@ -197,9 +197,13 @@ body{
             flex-direction: column;
             align-items: center;
         }
+        #card-cont > div:last-child{
+            margin-bottom: 0;
+        }
         .card{
             margin-bottom: 50px;
         }
+
     }
     .title-list{
         max-width: 100%;
@@ -267,6 +271,22 @@ footer{
         // 0 0 0 30px $white;
 }
 
+#edit-cont{
+    display: none;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 5%;
+}
+#save{
+    display: none;
+}
+#cancel{
+    display: none;
+}
+#info{
+    display: none;
+    color: $red;
+}
 
 .bubble {
     --r: 10px; /* the radius */
