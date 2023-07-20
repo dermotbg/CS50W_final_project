@@ -248,7 +248,7 @@ def edit(request, inp_id):
         return JsonResponse({"message": "Unauthorized User"}, status=403)
     if request.method == "PUT":
         data = json.loads(request.body.decode('utf-8'))
-        inp.body = data["post_bod"]
+        inp.input = data["post_bod"]
         inp.save()
         return HttpResponse(status=204)
     elif request.method != "PUT":
