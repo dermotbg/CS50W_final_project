@@ -61,25 +61,30 @@ function viewPost(){
 
 function editPost(){
     // get chat from DB 
-    const currentUrl = new URL(window.location.href);
-    const chat_num = currentUrl.hash.substring(6);
+    var currentUrl = new URL(window.location.href);
+    var chat_num = currentUrl.hash.substring(6);
     // console.log(chat_num)
     fetch(`/edit/${chat_num}`)
     .then(response => response.json())
     .then(result =>{
         console.log(result)
+
         for (let i = 0; i < result.length; i++){
             let inp_id = result[i].pk
-            console.log(inp_id)
+
+            // create edit title area:
+            const header = document.querySelector('#edit-title');
+            let title = document.querySelector('#chat-title')
+            title.innerHTML = result[i].fields.title;
+
             const container = document.querySelector('#edit-mod');
-            // create editable areas
+            // create editable post areas
             const editBox = document.createElement('textarea');
 
             editBox.innerHTML = result[i].fields.input
             editBox.className = 'bubble left';
             editBox.id = `ed-${inp_id}`
             editBox.style.display = 'flex';
-            // editBox.style.minBlockSize = '10em';
             editBox.style.minWidth = '25em'
             editBox.style.minHeight = '1em'
             container.appendChild(editBox)
@@ -93,13 +98,17 @@ function editPost(){
             respBox.disabled = true;
             respBox.classList.add('edit-resp')
             container.appendChild(respBox)
-            console.log(respBox)
 
             // create cancel path
-            const cancel = document.querySelectorAll('.cancel');
+            let cancel = document.querySelectorAll('.cancel');
             cancel.forEach(function(e){
-                e.addEventListener('click', () =>{
-                    while (container.firstChild){
+                // clone event node without eventlistener to prevent onclick stacks
+                let cancelClone = e.cloneNode(true);
+                // replace event node with the clone
+                e.parentNode.replaceChild(cancelClone, e);
+                // apply listener to the clone
+                cancelClone.addEventListener('click', () =>{
+                    while (container.firstChild) {
                         container.firstChild.remove();
                     }
                 });
@@ -107,21 +116,60 @@ function editPost(){
 
             // Save changes
             const save = document.querySelector('#save');
-            save.addEventListener('click', () => {
-                fetch(`/save/${inp_id}`, {
+            const editCont = document.querySelector('#edit-mod')
+            let saveClone = save.cloneNode(true);
+            save.parentNode.replaceChild(saveClone, save);
+            saveClone.addEventListener('click', () => {
+
+                const allInps = document.querySelectorAll(`[id^="ed-"]`)
+                var inputArray = [];
+                
+                allInps.forEach(function(e){
+                    var inputObj = {}
+                    let id = e.id.substring(3);
+    
+                    inputObj = {
+                        id: id,
+                        input: e.value,
+                        title: title.innerHTML
+                    };
+                    
+                    inputArray.push(inputObj)
+                })
+
+                // delete old edit boxes
+                while (editCont.firstChild) {
+                    editCont.firstChild.remove();
+                }
+
+                fetch(`/save/${chat_num}`, {
                     method: 'PUT',
                     headers: {
-                        "X-CSRFToken": Cookies.get('csrftoken')
+                        "X-CSRFToken": Cookies.get('csrftoken'),
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "post_bod": editBox.value
+                        "posts": inputArray
                     })
                 })
                 .then( () => {
-                    
-                    // update original li
-                    const orig = document.querySelector(`#inp${inp_id}`);
-                    orig.innerHTML = editBox.value;
+                    // catch 2 or more edits:
+                    var activeUrl = new URL(window.location.href);
+                    var activeSess = activeUrl.hash.substring(6);
+                    // update original chat li's
+                    const origs = document.querySelectorAll(`[data-id="ch-${activeSess}"]`)
+
+                    origs.forEach(function(e){
+                        for (let i = 0; i < inputArray.length; i++){
+                            if (inputArray[i].id === e.id.substring(e.id.length - 2) && e.id.includes("inp")){
+                                e.innerHTML = inputArray[i].input
+                            }
+                        };
+                        
+                    });
+                    // update original title li
+                    const ogTitle = document.querySelector(`#item-${activeSess}`);
+                    ogTitle.innerHTML = title.innerHTML;
                 });
             })
         };

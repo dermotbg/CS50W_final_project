@@ -298,4 +298,11 @@ footer {
   white-space: nowrap;
 }
 
+#edit-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: solid 1px black;
+}
+
 /*# sourceMappingURL=styles.css.map */

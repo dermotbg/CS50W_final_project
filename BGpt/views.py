@@ -245,20 +245,42 @@ def edit(request, ch_id):
         return JsonResponse({"error": "Chat not found."}, status=404)
         
 
-def save(request, inp_id):
-    try:
-        inp = models.Chat.objects.get(pk=inp_id)
-    except:
-        models.Chat.DoesNotExist
-        return JsonResponse({"message": "Invalid Payload"}, status=400)
+def save(request, ch_id):
+    # try:
+    #     # inp = models.Chat.objects.get(session=ch_id)
+    #     chat = models.Chat.objects.filter(session=ch_id)
+    # except:
+    #     models.Chat.DoesNotExist
+    #     return JsonResponse({"message": "Invalid Payload"}, status=400)
     
-    if inp.user != request.user:
-        return JsonResponse({"message": "Unauthorized User"}, status=403)
+    # if chat.user != request.user:
+    #     return JsonResponse({"message": "Unauthorized User"}, status=403)
     
     if request.method == "PUT":
+        try:
+            # inp = models.Chat.objects.get(session=ch_id)
+            chat = models.Chat.objects.filter(session=ch_id)    
+        except:
+            models.Chat.DoesNotExist
+            return JsonResponse({"message": "Invalid Payload"}, status=400)
         data = json.loads(request.body.decode('utf-8'))
-        inp.input = data["post_bod"]
-        inp.save()
+        # print(data)
+        posts = data["posts"]
+        for new_title in chat:
+            new_title.title = posts[0]["title"]
+            print(new_title.title)
+            new_title.save()
+        # update all inputs
+        for row in chat:
+            for e in posts:
+                if str(row.pk) == e["id"]:
+                    row.input = e["input"]
+                    row.save()
+            # if posts[row] == row.pk:
+            #     row.input = data["input"]
+            #     row.save()
+            # models.Chat.objects.filter(pk=post_id).update(input=post_content)
+
         return HttpResponse(status=204)
     elif request.method != "PUT":
         return JsonResponse({"message": "Error: Must be PUT request"}, status=400)
