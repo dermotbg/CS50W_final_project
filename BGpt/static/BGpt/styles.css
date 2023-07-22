@@ -248,19 +248,6 @@ footer {
   margin-right: 5%;
 }
 
-#save {
-  display: none;
-}
-
-#cancel {
-  display: none;
-}
-
-#info {
-  display: none;
-  color: #ff2d2d;
-}
-
 .bubble {
   --r: 10px; /* the radius */
   --t: 30px; /* the size of the tail */
@@ -302,6 +289,13 @@ footer {
 
 .tstamp-r {
   place-self: end;
+}
+
+.edit-resp {
+  max-width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 /*# sourceMappingURL=styles.css.map */

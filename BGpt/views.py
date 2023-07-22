@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.core.serializers import serialize
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -8,7 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from gtts import gTTS
 from deep_translator import GoogleTranslator
-# from pydub.silence import split_on_silence
 
 import json
 import openai 
@@ -221,9 +221,6 @@ def chat_loop(request):
                              status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
 
-# @login_required
-# def chat_view(request, chat_id):
-#     return render(request, "BGpt/chat.html")
 
 @login_required
 def history_view(request, user_id):
@@ -238,18 +235,30 @@ def history_view(request, user_id):
     })
 
 @login_required
-def edit(request, inp_id):
+def edit(request, ch_id):
+    try:
+        chats = models.Chat.objects.filter(session=ch_id)
+        chat_ser = serialize("json", chats)
+        return JsonResponse(json.loads(chat_ser), safe=False)
+        
+    except models.Chat.DoesNotExist:
+        return JsonResponse({"error": "Chat not found."}, status=404)
+        
+
+def save(request, inp_id):
     try:
         inp = models.Chat.objects.get(pk=inp_id)
     except:
         models.Chat.DoesNotExist
         return JsonResponse({"message": "Invalid Payload"}, status=400)
+    
     if inp.user != request.user:
         return JsonResponse({"message": "Unauthorized User"}, status=403)
+    
     if request.method == "PUT":
         data = json.loads(request.body.decode('utf-8'))
         inp.input = data["post_bod"]
         inp.save()
         return HttpResponse(status=204)
     elif request.method != "PUT":
-        return JsonResponse({"message": "Must be PUT request"}, status=400)
+        return JsonResponse({"message": "Error: Must be PUT request"}, status=400)

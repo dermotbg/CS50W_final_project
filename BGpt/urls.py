@@ -10,6 +10,7 @@ urlpatterns =[
 
 
     # API's
-    path("edit/<int:inp_id>", views.edit, name="edit"),
+    path("save/<int:inp_id>", views.save, name="save"),
+    path("edit/<int:ch_id>", views.edit, name="edit"),
     path("chat_loop", views.chat_loop, name="chat_loop")
 ]

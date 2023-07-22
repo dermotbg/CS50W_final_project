@@ -277,16 +277,16 @@ footer{
     justify-content: flex-end;
     margin-right: 5%;
 }
-#save{
-    display: none;
-}
-#cancel{
-    display: none;
-}
-#info{
-    display: none;
-    color: $red;
-}
+// #save{
+//     display: none;
+// }
+// #cancel{
+//     display: none;
+// }
+// #info{
+//     display: none;
+//     color: $red;
+// }
 
 .bubble {
     --r: 10px; /* the radius */
@@ -342,4 +342,10 @@ footer{
 .tstamp-r{
     @extend %tstamp;
     place-self: end;
+}
+.edit-resp{
+    max-width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
