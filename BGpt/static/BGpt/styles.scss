@@ -213,8 +213,8 @@ body{
         list-style: none;
     }
     .list-group{
-        max-height: 480px;
-        overflow-y: scroll;
+        max-height: 380px;
+        overflow-y: auto;
         border: none;
     }
     .list-group-responses > *{
@@ -255,6 +255,7 @@ body{
         .spinner-border {
             display: none;
         }
+
     }
 }
 footer{
@@ -354,4 +355,9 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    h2{
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 5px 5px 5px 5px;
+    }
 }

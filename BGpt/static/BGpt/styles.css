@@ -185,8 +185,8 @@ body .title-list {
   list-style: none;
 }
 body .list-group {
-  max-height: 480px;
-  overflow-y: scroll;
+  max-height: 380px;
+  overflow-y: auto;
   border: none;
 }
 body .list-group-responses > * {
@@ -302,7 +302,11 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: solid 1px black;
+}
+#edit-title h2 {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 5px 5px 5px 5px;
 }
 
 /*# sourceMappingURL=styles.css.map */
