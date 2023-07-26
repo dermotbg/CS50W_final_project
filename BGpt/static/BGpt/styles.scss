@@ -95,6 +95,9 @@ body{
         justify-content: flex-start;
         margin: auto;
     }
+    .col-8{
+        padding-top: 10px;
+    }
     #bgpt-logo-cont{
         display: flex;
         flex-direction: row;
@@ -223,10 +226,17 @@ body{
         overflow-y: auto;
         border: none;
     }
+    .bg-light2{
+        background-color: white;
+        border: none;
+        box-shadow: none;
+    }
+    
     .list-group-responses > *{
         display: none;
         padding: 5px 5px 5px 5px;
     }
+    
     .list-group-item:hover{
         background-color: $green;
         color: $white;
