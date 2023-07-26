@@ -225,6 +225,7 @@ body .resp {
 .modal-content .modal-body {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .modal-content .modal-body .spinner-border {
   display: none;
@@ -258,6 +259,7 @@ footer {
   mask: radial-gradient(var(--t) at var(--_d) 0, rgba(0, 0, 0, 0) 98%, #000 102%) var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat, conic-gradient(at var(--r) var(--r), #000 75%, rgba(0, 0, 0, 0) 0) calc(var(--r) / -2) calc(var(--r) / -2) padding-box, radial-gradient(50% 50%, #000 98%, rgba(0, 0, 0, 0) 101%) 0 0/var(--r) var(--r) space padding-box;
   background: #319835;
   color: #ffffff;
+  resize: none;
 }
 
 .left {
@@ -306,7 +308,7 @@ footer {
 #edit-title h2 {
   border: 2px solid #ccc;
   border-radius: 10px;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 10px 5px 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

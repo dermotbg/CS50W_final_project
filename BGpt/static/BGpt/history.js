@@ -85,8 +85,16 @@ function editPost(){
             editBox.className = 'bubble left';
             editBox.id = `ed-${inp_id}`
             editBox.style.display = 'flex';
-            editBox.style.minWidth = '25em'
-            editBox.style.minHeight = '1em'
+            w = window.innerWidth 
+            console.log(w)
+            if (window.innerWidth <= 600){
+                editBox.style.minWidth = '90%'
+                editBox.style.minHeight = '6em'
+            }
+            else{
+                editBox.style.minWidth = '20em'
+                editBox.style.minHeight = '2em'
+            };
             container.appendChild(editBox)
 
             // create disabled responses

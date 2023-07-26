@@ -252,6 +252,7 @@ body{
     .modal-body{
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
         .spinner-border {
             display: none;
         }
@@ -313,6 +314,7 @@ footer{
     // background: linear-gradient(135deg, $red, $green) border-box;
     background: $green;
     color: $white;
+    resize: none;
   }
   .left {
     --_d: 0%;
@@ -358,6 +360,6 @@ footer{
     h2{
         border: 2px solid #ccc;
         border-radius: 10px;
-        padding: 5px 5px 5px 5px;
+        padding: 5px 10px 5px 10px;
     }
 }
