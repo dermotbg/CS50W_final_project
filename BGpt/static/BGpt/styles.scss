@@ -101,25 +101,31 @@ body{
         justify-content: center;
         align-items: center;
         // background-image: linear-gradient(to bottom, #FFFFFF, #00966E, #D62612);
-        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_i6Fof5rOuhRPBSn-OqZWhjn82TCwBw3MXYXSOr9WYwM2JkV-IZcnrx6zO3iGbBRuJs&usqp=CAU);
-
+        // background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_i6Fof5rOuhRPBSn-OqZWhjn82TCwBw3MXYXSOr9WYwM2JkV-IZcnrx6zO3iGbBRuJs&usqp=CAU) no-repeat center center fixed;;
+        background-image: url(Flag.png);
+        border: solid 2px black;
         h1{
-            font-size: 10em;
+            // font-size: 10em;
+            font-size: 10rem;
+            max-height: 165px;
         }
         h3{
             font-size: 3em;
+            margin-bottom: 0;
         }
         @media (max-width: 600px) {
-            background-size: 40%;
-            h1{
-                font-size: 5em;
-                margin-bottom: 0;
+            // background-size: 40%;
+            min-height: 165px;
+            
+            // h1{
+            //     font-size: 5rem;
+            //     margin-bottom: 0;
                 
-            }
-            h3{
-                font-size: 2em;
-                margin-bottom: 0;
-            }
+            // }
+            // h3{
+            //     font-size: 2em;
+            //     margin-bottom: 0;
+            // }
         }
         
     }

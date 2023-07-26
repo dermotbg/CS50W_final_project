@@ -80,25 +80,20 @@ body #bgpt-logo-cont {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_i6Fof5rOuhRPBSn-OqZWhjn82TCwBw3MXYXSOr9WYwM2JkV-IZcnrx6zO3iGbBRuJs&usqp=CAU);
+  background-image: url(Flag.png);
+  border: solid 2px black;
 }
 body #bgpt-logo-cont h1 {
-  font-size: 10em;
+  font-size: 10rem;
+  max-height: 165px;
 }
 body #bgpt-logo-cont h3 {
   font-size: 3em;
+  margin-bottom: 0;
 }
 @media (max-width: 600px) {
   body #bgpt-logo-cont {
-    background-size: 40%;
-  }
-  body #bgpt-logo-cont h1 {
-    font-size: 5em;
-    margin-bottom: 0;
-  }
-  body #bgpt-logo-cont h3 {
-    font-size: 2em;
-    margin-bottom: 0;
+    min-height: 165px;
   }
 }
 body #welcome {
