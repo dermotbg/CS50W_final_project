@@ -18,31 +18,33 @@
 </div>
 
 <div id="formcontainer">
-    <div class="view-deets">
-        <div class="deets-cont">
-            <div><strong>Username:</strong></div>
-            <div>{{ user.username }}</div>
+    <div class="user-cont">
+        <div class="view-deets">
+            <div class="deets-cont">
+                <div><strong>Username:</strong></div>
+                <div>{{ user.username }}</div>
+            </div>
+            <div class="deets-cont">
+                <div><strong>First Name:</strong></div>
+                <div>{{ user.first_name }}</div>
+            </div>
+            <div class="deets-cont">
+                <div><strong>Last Name:</strong></div>
+                <div>{{ user.last_name }}</div>
+            </div>
+            <div class="deets-cont">
+                <div><strong>Email:</strong></div>
+                <div>{{ user.email }}</div>
+            </div>
+            <div class="deets-cont">
+                <div><strong>Date Joined:</strong></div>
+                <div>{{ user.date_joined }}</div>
+            </div>
         </div>
-        <div class="deets-cont">
-            <div><strong>First Name:</strong></div>
-            <div>{{ user.first_name }}</div>
+        <div id="prof_btns">
+            <button class="btn btn-prim">Edit information</button>
+            <button class="btn btn-prim">Change Password</button>
         </div>
-        <div class="deets-cont">
-            <div><strong>Last Name:</strong></div>
-            <div>{{ user.last_name }}</div>
-        </div>
-        <div class="deets-cont">
-            <div><strong>Email:</strong></div>
-            <div>{{ user.email }}</div>
-        </div>
-        <div class="deets-cont">
-            <div><strong>Date Joined:</strong></div>
-            <div>{{ user.date_joined }}</div>
-        </div>
-    </div>
-    <div id="prof_btns">
-        <button class="btn btn-prim">Edit information</button>
-        <button class="btn btn-prim">Change Password</button>
     </div>
     <!-- Change User info -->
     <div id="change-user">

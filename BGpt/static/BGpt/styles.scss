@@ -387,10 +387,12 @@ footer{
 }
 
 #formcontainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+    .user-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        // align-items: center;
+    }
     #prof_btns{
         display: flex;
         flex-direction: column;
@@ -408,6 +410,22 @@ footer{
     }
     .deets-cont > * {
         width: 50%;
+    }
+    #change-user{
+        animation-name: slide;
+        animation-duration: 2s;
+        animation-fill-mode: backwards;
+        animation-play-state: paused;
+    }
+    @keyframes slide {
+        from{
+            transform: translateX(0);
+            -webkit-transform: translateX(0);
+        }
+        to{
+            transform: translateX(100%);
+            -webkit-transform: translateX(100%);
+        }
     }
     .view-deets > * {
         padding: 2% 2% 2% 2%;
