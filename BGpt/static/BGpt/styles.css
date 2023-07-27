@@ -344,7 +344,7 @@ footer {
 #formcontainer .deets-cont > * {
   width: 50%;
 }
-#formcontainer #change-user {
+#formcontainer #change-user, #formcontainer #change-pw {
   animation-name: slide;
   animation-duration: 800ms;
   animation-fill-mode: backwards;
@@ -371,6 +371,7 @@ footer {
 
 #change-pw {
   display: none;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map */
