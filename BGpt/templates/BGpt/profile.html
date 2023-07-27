@@ -19,17 +19,33 @@
 
 <div id="formcontainer">
     <div class="view-deets">
-        <div>Username: {{ user.username }}</div>
-        <div>First Name: {{ user.first_name }}</div>
-        <div>Last Name: {{ user.last_name }}</div>
-        <div>Email: {{ user.email }}</div>
-        <div>Date Joined: {{ user.date_joined }}</div>
+        <div class="deets-cont">
+            <div><strong>Username:</strong></div>
+            <div>{{ user.username }}</div>
+        </div>
+        <div class="deets-cont">
+            <div><strong>First Name:</strong></div>
+            <div>{{ user.first_name }}</div>
+        </div>
+        <div class="deets-cont">
+            <div><strong>Last Name:</strong></div>
+            <div>{{ user.last_name }}</div>
+        </div>
+        <div class="deets-cont">
+            <div><strong>Email:</strong></div>
+            <div>{{ user.email }}</div>
+        </div>
+        <div class="deets-cont">
+            <div><strong>Date Joined:</strong></div>
+            <div>{{ user.date_joined }}</div>
+        </div>
     </div>
     <div id="prof_btns">
         <button class="btn btn-prim">Edit information</button>
         <button class="btn btn-prim">Change Password</button>
     </div>
-    <div id="change-deets">
+    <!-- Change User info -->
+    <div id="change-user">
         <form action="{% url 'profile' user.id %}" method="post" autocomplete="off">
             {% csrf_token %}
             <div class="form-group">
@@ -48,6 +64,15 @@
                 <label for="last_name">Last Name:</label>
                 <input class="form-control" type="text" name="last_name" {% if user.last_name %} placeholder="{{ user.last_name}}" {% else %} placeholder="Last Name" {% endif %}>
             </div>
+            <div class="btn-cont btn-reg">
+                <button type="submit" class="btn btn-prim" name="update-info">Submit</button>
+                <a href="{% url 'index' %}" class="btn btn-prim">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <div id="change-pw">
+        <form action="{% url 'profile' user.id %}" method="post" autocomplete="off">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="current-password">Current Password:</label>
                 <input class="form-control" type="password" name="current-password" placeholder="Current Password">
@@ -61,8 +86,8 @@
                 <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
             </div>
             <div class="btn-cont btn-reg">
-                <button type="submit" class="btn btn-prim">Submit</button>
-                <a href="{% url 'index' %}" class="btn btn-prim">Cancel</a>
+                <button type="submit" class="btn btn-prim" name="pw-change">Submit</button>
+                <a href="{% url 'profile' user.id %}" class="btn btn-prim">Cancel</a>
             </div>
         </form>
     </div>

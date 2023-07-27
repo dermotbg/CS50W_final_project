@@ -389,18 +389,33 @@ footer{
 #formcontainer{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     #prof_btns{
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-around;
         
     }
     #prof_btns > * {
         margin: 10% 0 10% 0;
     }
+    .deets-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .deets-cont > * {
+        width: 50%;
+    }
+    .view-deets > * {
+        padding: 2% 2% 2% 2%;
+    }
 }
-#change-deets{
+#change-user{
+    display: none;
+}
+#change-pw{
     display: none;
 }
