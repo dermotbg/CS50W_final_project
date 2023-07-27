@@ -13,6 +13,12 @@ $green: #319835;
 $green-drk: #0f4d32; 
 
 body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    .body-cont{
+        flex: 1;
+    }
     .btn-prim{
         background-color: $white;
         color: $red;

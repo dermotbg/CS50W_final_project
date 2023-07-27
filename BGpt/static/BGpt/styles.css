@@ -1,3 +1,11 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body .body-cont {
+  flex: 1;
+}
 body .btn-prim {
   background-color: #ffffff;
   color: #ff2d2d;
