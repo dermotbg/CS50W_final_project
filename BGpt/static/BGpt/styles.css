@@ -346,18 +346,18 @@ footer {
 }
 #formcontainer #change-user {
   animation-name: slide;
-  animation-duration: 2s;
+  animation-duration: 800ms;
   animation-fill-mode: backwards;
   animation-play-state: paused;
 }
 @keyframes slide {
   from {
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
   }
   to {
-    transform: translateX(100%);
-    -webkit-transform: translateX(100%);
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
   }
 }
 #formcontainer .view-deets > * {
@@ -366,6 +366,7 @@ footer {
 
 #change-user {
   display: none;
+  justify-content: center;
 }
 
 #change-pw {

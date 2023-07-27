@@ -42,7 +42,7 @@
             </div>
         </div>
         <div id="prof_btns">
-            <button class="btn btn-prim">Edit information</button>
+            <button class="btn btn-prim" id="edit-user">Edit information</button>
             <button class="btn btn-prim">Change Password</button>
         </div>
     </div>
@@ -72,6 +72,7 @@
             </div>
         </form>
     </div>
+    <!-- change PW -->
     <div id="change-pw">
         <form action="{% url 'profile' user.id %}" method="post" autocomplete="off">
             {% csrf_token %}
@@ -94,5 +95,5 @@
         </form>
     </div>
 </div>
-
 {% endblock %}
+{% block page_scripts %}<script src="{% static 'BGpt/profile.js' %}"></script>{% endblock %}
