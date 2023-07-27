@@ -345,12 +345,17 @@ footer {
   width: 50%;
 }
 #formcontainer #change-user, #formcontainer #change-pw {
-  animation-name: slide;
   animation-duration: 800ms;
   animation-fill-mode: backwards;
   animation-play-state: paused;
 }
-@keyframes slide {
+#formcontainer .slide-in {
+  animation-name: slide-in;
+}
+#formcontainer .slide-out {
+  animation-name: slide-out;
+}
+@keyframes slide-in {
   from {
     transform: translateX(-100%);
     -webkit-transform: translateX(-100%);
@@ -358,6 +363,16 @@ footer {
   to {
     transform: translateX(0%);
     -webkit-transform: translateX(0%);
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
   }
 }
 #formcontainer .view-deets > * {
