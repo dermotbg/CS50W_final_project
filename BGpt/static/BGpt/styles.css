@@ -335,6 +335,16 @@ footer {
 #formcontainer #prof_btns > * {
   margin: 10% 0 10% 0;
 }
+@media (max-width: 600px) {
+  #formcontainer .user-cont {
+    flex-direction: column;
+    justify-content: center;
+  }
+  #formcontainer #prof_btns > * {
+    margin: 5% 25% 5% 25%;
+    width: 50%;
+  }
+}
 #formcontainer .deets-cont {
   display: flex;
   flex-direction: row;
