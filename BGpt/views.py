@@ -7,8 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-from gtts import gTTS
 from deep_translator import GoogleTranslator
+from gtts import gTTS
 
 import json
 import openai 
@@ -84,7 +84,10 @@ def register(request):
 
 @login_required
 def profile_view(request, user_id):
-    return render(request, "BGPT/profile.html")
+    user = models.User.objects.get(pk=user_id)
+    return render(request, "BGPT/profile.html",{
+        "user": user
+    })
 
 @csrf_exempt
 @login_required

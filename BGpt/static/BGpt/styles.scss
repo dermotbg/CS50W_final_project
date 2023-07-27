@@ -379,3 +379,22 @@ footer{
         padding: 5px 10px 5px 10px;
     }
 }
+
+#formcontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    #prof_btns{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        
+    }
+    #prof_btns > * {
+        margin: 10% 0 10% 0;
+    }
+}
+#change-deets{
+    display: none;
+}

@@ -9,4 +9,63 @@
     <h3>t</h3>
 </div>
 
+<div class="welcome-cont">
+    {% if user.first_name %}
+    <div class="display-4">Welcome {{ user.first_name | capfirst}}</div>
+    {% else %}
+    <div class="display-4">Welcome {{ user.username | capfirst}}</div>
+    {% endif %}
+</div>
+
+<div id="formcontainer">
+    <div class="view-deets">
+        <div>Username: {{ user.username }}</div>
+        <div>First Name: {{ user.first_name }}</div>
+        <div>Last Name: {{ user.last_name }}</div>
+        <div>Email: {{ user.email }}</div>
+        <div>Date Joined: {{ user.date_joined }}</div>
+    </div>
+    <div id="prof_btns">
+        <button class="btn btn-prim">Edit information</button>
+        <button class="btn btn-prim">Change Password</button>
+    </div>
+    <div id="change-deets">
+        <form action="{% url 'profile' user.id %}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="form-control" autofocus type="text" name="username" placeholder="{{ user.username }}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input class="form-control" type="text" name="first_name" {% if user.first_name %} placeholder="{{ user.first_name}}" {% else %} placeholder="First Name" {% endif %}>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input class="form-control" type="text" name="last_name" {% if user.last_name %} placeholder="{{ user.last_name}}" {% else %} placeholder="Last Name" {% endif %}>
+            </div>
+            <div class="form-group">
+                <label for="current-password">Current Password:</label>
+                <input class="form-control" type="password" name="current-password" placeholder="Current Password">
+            </div>
+            <div class="form-group">
+                <label for="new-password">New Password:</label>
+                <input class="form-control" type="password" name="new-password" placeholder="New Password">
+            </div>
+            <div class="form-group">
+                <label for="confirmation">Confirm New Password:</label>
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <div class="btn-cont btn-reg">
+                <button type="submit" class="btn btn-prim">Submit</button>
+                <a href="{% url 'index' %}" class="btn btn-prim">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
