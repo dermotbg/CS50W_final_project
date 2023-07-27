@@ -15,6 +15,9 @@
     {% else %}
     <div class="display-4">Welcome {{ user.username | capfirst}}</div>
     {% endif %}
+    {% if message %}
+    <div class="display-4">*{{ message }}</div>
+    {% endif %}
 </div>
 
 <div id="formcontainer">
@@ -67,6 +70,7 @@
                 <input class="form-control" type="text" name="last_name" {% if user.last_name %} placeholder="{{ user.last_name}}" {% else %} placeholder="Last Name" {% endif %}>
             </div>
             <div class="btn-cont btn-reg">
+                <input type="hidden" name="form_id" value="user_change">
                 <button type="submit" class="btn btn-prim" name="update-info">Submit</button>
                 <a href="{% url 'profile' user.id %}"class="btn btn-prim">Cancel</a>
             </div>
@@ -78,17 +82,18 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="current-password">Current Password:</label>
-                <input class="form-control" type="password" name="current-password" placeholder="Current Password">
+                <input class="form-control" type="password" name="current-password" placeholder="Current Password" autocomplete="on">
             </div>
             <div class="form-group">
                 <label for="new-password">New Password:</label>
-                <input class="form-control" type="password" name="new-password" placeholder="New Password">
+                <input class="form-control" type="password" name="new-password" placeholder="New Password" autocomplete="on">
             </div>
             <div class="form-group">
                 <label for="confirmation">Confirm New Password:</label>
-                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password" autocomplete="on">
             </div>
             <div class="btn-cont btn-reg">
+                <input type="hidden" name="form_id" value="pw_change">
                 <button type="submit" class="btn btn-prim" name="pw-change">Submit</button>
                 <a href="{% url 'profile' user.id %}" class="btn btn-prim">Cancel</a>
             </div>

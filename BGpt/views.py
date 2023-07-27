@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.core.serializers import serialize
 from django.contrib.auth import authenticate, login, logout
@@ -84,7 +85,47 @@ def register(request):
 
 @login_required
 def profile_view(request, user_id):
-    user = models.User.objects.get(pk=user_id)
+    
+    try:
+        user = models.User.objects.get(pk=user_id)
+    except models.User.DoesNotExist:
+        raise PermissionDenied
+
+    if request.user != user:
+        raise PermissionDenied
+
+    if request.method == "POST":
+
+        if request.POST["form_id"] == "user_change":
+            email = request.POST["email"]
+            first = request.POST["first_name"]
+            last = request.POST['last_name']
+
+            user.email = email
+            user.first_name = first
+            user.last_name = last
+            user.save()
+
+
+        elif request.POST["form_id"] == "pw_change":
+            old = request.POST['current-password']
+            new = request.POST['new-password']
+            conf = request.POST['confirmation']
+
+            if not user.check_password(old):
+                return render(request, "BGPT/profile.html",{
+                "message": "Incorrect Password",
+                "user": user
+            })
+            elif new != conf:
+                return render(request, "BGPT/profile.html",{
+                "message": "Passwords Do Not Match",
+                "user": user
+            })
+            else:
+                user.set_password(new)
+                user.save()
+
     return render(request, "BGPT/profile.html",{
         "user": user
     })
@@ -231,6 +272,14 @@ def chat_loop(request):
 
 @login_required
 def history_view(request, user_id):
+
+    try:
+        user = models.User.objects.get(pk=user_id)
+    except models.User.DoesNotExist:
+        raise PermissionDenied
+
+    if request.user != user:
+        raise PermissionDenied
 
     full_hist = utils.gather_hist(user_id)
     paginator = Paginator(full_hist, 10)
