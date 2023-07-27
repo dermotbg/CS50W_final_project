@@ -345,7 +345,7 @@ footer {
   width: 50%;
 }
 #formcontainer #change-user, #formcontainer #change-pw {
-  animation-duration: 800ms;
+  animation-duration: 500ms;
   animation-fill-mode: backwards;
   animation-play-state: paused;
 }
