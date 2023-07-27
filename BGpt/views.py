@@ -81,7 +81,11 @@ def register(request):
         return HttpResponseRedirect(reverse('index'))
     else:
         return render(request, "BGpt/login_register.html")
-    
+
+@login_required
+def profile_view(request, user_id):
+    return render(request, "BGPT/profile.html")
+
 @csrf_exempt
 @login_required
 def chat_loop(request):
@@ -244,7 +248,7 @@ def edit(request, ch_id):
     except models.Chat.DoesNotExist:
         return JsonResponse({"error": "Chat not found."}, status=404)
         
-
+@login_required
 def save(request, ch_id):
     # try:
     #     # inp = models.Chat.objects.get(session=ch_id)

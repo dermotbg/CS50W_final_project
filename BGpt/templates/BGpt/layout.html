@@ -24,7 +24,7 @@
             <div class="navbar-nav">
               <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
               {% if user.is_authenticated %}
-              <a class="nav-link" href="#">{{ user.username | capfirst }}</a>
+              <a class="nav-link" href="{% url 'profile' user.id %}">{{ user.username | capfirst }}</a>
               <a class="nav-link" href="{% url 'history' user.id %}">History</a>
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}
