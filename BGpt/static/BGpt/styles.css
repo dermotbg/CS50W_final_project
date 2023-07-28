@@ -35,6 +35,12 @@ body .btn-sec:hover {
   background-color: #ff2d2d;
   color: #ffffff;
 }
+body #cont-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 50vh;
+}
 body #register-cont {
   display: none;
   flex-direction: column;
@@ -64,6 +70,9 @@ body .btn-cont {
 }
 body .btn-cont a {
   text-decoration: none;
+}
+body .log {
+  justify-content: space-evenly;
 }
 body .btn-reg {
   justify-content: space-between;

@@ -51,6 +51,12 @@ body{
         background-color: $red;
         color: $white;
     }
+    #cont-cont{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        min-height: 50vh;
+    }
     #register-cont{
         display: none;
         flex-direction: column;
@@ -107,6 +113,9 @@ body{
         a{
             text-decoration: none;
         }
+    }
+    .log{
+        justify-content: space-evenly;
     }
     .btn-reg {
         justify-content: space-between;
