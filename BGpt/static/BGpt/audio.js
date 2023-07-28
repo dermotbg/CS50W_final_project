@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // hide chat bubbles until info
+    bubz = document.querySelectorAll('.bubble')
+    bubz.forEach(function(e){
+        e.style.display = 'none';
+    });
+
     // handle close session when modal is closed. 
     closeSession();
     // initialise handler in global scale to stop overlapping on replay button
@@ -141,6 +147,12 @@ function conversationLoop(playAudioHandler){
 
                 // display button
                 replay.style.display = "block";
+                
+                // display chat bubbles
+                bubz = document.querySelectorAll('.bubble')
+                bubz.forEach(function(e){
+                    e.style.display = 'flex';
+                });
             
                 // word by word response
                 let words = data.words
@@ -210,6 +222,15 @@ function closeSession(){
                 while (trans_area.firstChild){
                     trans_area.removeChild(trans_area.lastChild)
                 }
+                // remove bubbles in case of close/open
+                bubz = document.querySelectorAll('.bubble')
+                bubz.forEach(function(e){
+                    e.style.display = 'none';
+                });
+
+                // remove spinner in case of same
+                const spin = document.querySelector('.spinner-border');
+                spin.style.display = 'none';
             })
         });
     });
