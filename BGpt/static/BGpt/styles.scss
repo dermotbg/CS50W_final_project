@@ -76,32 +76,6 @@ body{
         animation-fill-mode: backwards;
         animation-play-state: paused;
     }
-    // .slide-in{
-    //     animation-name: slide-in;
-    // }
-    // .slide-out{
-    //     animation-name: slide-out;
-    // }
-    // @keyframes slide-in {
-    //     from{
-    //         transform: translateX(-100%);
-    //         -webkit-transform: translateX(-100%);
-    //     }
-    //     to{
-    //         transform: translateX(0%);
-    //         -webkit-transform: translateX(0%);
-    //     }
-    // }
-    // @keyframes slide-out {
-    //     from{
-    //         transform: translateX(0%);
-    //         -webkit-transform: translateX(0%);
-    //     }
-    //     to{
-    //         transform: translateX(100%);
-    //         -webkit-transform: translateX(100%);
-    //     }
-    // }
     .form-group{
         margin-bottom: 5px;
     }
@@ -150,12 +124,9 @@ body{
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        // background-image: linear-gradient(to bottom, #FFFFFF, #00966E, #D62612);
-        // background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI_i6Fof5rOuhRPBSn-OqZWhjn82TCwBw3MXYXSOr9WYwM2JkV-IZcnrx6zO3iGbBRuJs&usqp=CAU) no-repeat center center fixed;;
         background-image: url(Flag.png);
         border: solid 2px black;
         h1{
-            // font-size: 10em;
             font-size: 10rem;
             max-height: 165px;
         }
@@ -164,18 +135,7 @@ body{
             margin-bottom: 0;
         }
         @media (max-width: 600px) {
-            // background-size: 40%;
             min-height: 165px;
-            
-            // h1{
-            //     font-size: 5rem;
-            //     margin-bottom: 0;
-                
-            // }
-            // h3{
-            //     font-size: 2em;
-            //     margin-bottom: 0;
-            // }
         }
         
     }
@@ -342,16 +302,6 @@ footer{
     justify-content: flex-end;
     margin-right: 5%;
 }
-// #save{
-//     display: none;
-// }
-// #cancel{
-//     display: none;
-// }
-// #info{
-//     display: none;
-//     color: $red;
-// }
 
 .bubble {
     --r: 10px; /* the radius */
@@ -466,32 +416,6 @@ footer{
         animation-fill-mode: backwards;
         animation-play-state: paused;
     }
-    // .slide-in{
-    //     animation-name: slide-in;
-    // }
-    // .slide-out{
-    //     animation-name: slide-out;
-    // }
-    // @keyframes slide-in {
-    //     from{
-    //         transform: translateX(-100%);
-    //         -webkit-transform: translateX(-100%);
-    //     }
-    //     to{
-    //         transform: translateX(0%);
-    //         -webkit-transform: translateX(0%);
-    //     }
-    // }
-    // @keyframes slide-out {
-    //     from{
-    //         transform: translateX(0%);
-    //         -webkit-transform: translateX(0%);
-    //     }
-    //     to{
-    //         transform: translateX(100%);
-    //         -webkit-transform: translateX(100%);
-    //     }
-    // }
     .view-deets > * {
         padding: 2% 2% 2% 2%;
     }
