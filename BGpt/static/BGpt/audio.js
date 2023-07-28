@@ -231,6 +231,10 @@ function closeSession(){
                 // remove spinner in case of same
                 const spin = document.querySelector('.spinner-border');
                 spin.style.display = 'none';
+
+                // remove replay button 
+                const replay = document.querySelector('#btn-replay');
+                replay.style.display = 'none';
             })
         });
     });
