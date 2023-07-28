@@ -145,34 +145,17 @@ def chat_loop(request):
     if request.method == "POST":
         # check for chat session id
         session_id = None
-        # if request.session['chat_id'] is not None:
-        if 'chat_id' in request.session:
-            try: 
-                request.session['chat_id']
+        if 'chat_id' in request.session and request.session['chat_id'] is not None:
                 session_id = request.session['chat_id']
-            except KeyError:
-                pass
         else:
-            try:
-                lc = models.Chat.objects.filter(user=request.user).last()
+            lc = models.Chat.objects.filter(user=request.user).last()
+            if lc is not None:
                 session_id = lc.session
                 session_id +=1 
                 request.session['chat_id'] = session_id
-            except models.Chat.DoesNotExist:
+            else:
                 request.session['chat_id'] = 1
                 session_id = 1
-
-        # if request.session['chat_id'] is not None:
-        #         session_id = request.session['chat_id']
-        # else:
-        #     try:
-        #         lc = models.Chat.objects.filter(user=request.user).last()
-        #         session_id = lc.session
-        #         session_id +=1 
-        #         request.session['chat_id'] = session_id
-        #     except models.Chat.DoesNotExist:
-        #         request.session['chat_id'] = 1
-        #         session_id = 1
 
         # take/save blob from req
         audio = request.FILES['audio']
