@@ -72,7 +72,13 @@ body .btn-cont a {
   text-decoration: none;
 }
 body .log {
-  justify-content: space-evenly;
+  justify-content: center;
+}
+body .log #login {
+  margin-right: 10px;
+}
+body .log #register {
+  margin-left: 10px;
 }
 body .btn-reg {
   justify-content: space-between;
@@ -256,6 +262,30 @@ body .resp {
 }
 .modal-content .modal-body .spinner-border {
   display: none;
+}
+
+#chat-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#chat-modal .btn {
+  max-width: 50%;
+  margin-left: 25%;
+}
+
+#chat-modal > * {
+  margin: 12px 0 12px 0;
+}
+
+#lang-selector {
+  max-width: 50%;
+  margin-left: 25%;
+}
+
+#chat-title {
+  max-width: 50%;
+  margin-left: 25%;
 }
 
 footer {

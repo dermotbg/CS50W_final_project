@@ -10,6 +10,9 @@
 </div>
 
 <div id="cont-cont">
+    <div class="message">
+        {% if message %} {{ message }} {% endif %}
+    </div>
     <div class="btn-cont log">
         <button type="button" class="btn btn-prim" id="login">Login</button>
         <button type="button" class="btn btn-prim" id="register">Register</button>
@@ -53,9 +56,6 @@
             </div>
         </form>
     </div>
-    <div class="message">
-        {{ message }}
-    </div>
 </div>
 
 {% endblock %}
@@ -72,12 +72,10 @@
         var url = window.location.pathname
 
         if (url === "/register"){
-            message.style.display = 'none';
             login.style.display = 'none';
             reg.style.display = 'flex';
         }
         else if (url === "/login"){
-            message.style.display = 'none';
             login.style.display = 'flex';
             reg.style.display = 'none';
         }

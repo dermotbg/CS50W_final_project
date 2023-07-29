@@ -89,7 +89,15 @@ body{
         }
     }
     .log{
-        justify-content: space-evenly;
+        justify-content: center;
+        // max-width: 50%;
+        // margin-left: 25%;
+        #login{
+        margin-right: 10px;
+        }
+        #register{
+            margin-left: 10px;
+        }
     }
     .btn-reg {
         justify-content: space-between;
@@ -286,7 +294,24 @@ body{
     }
 }
 #chat-modal{
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .btn{
+        max-width: 50%;
+        margin-left: 25%;
+    }
+}
+#chat-modal > * {
+    margin: 12px 0 12px 0;
+}
+#lang-selector{
+    max-width: 50%;
+    margin-left: 25%;
+}
+#chat-title{
+    max-width: 50%;
+    margin-left: 25%;
 }
 footer{
     display: flex;

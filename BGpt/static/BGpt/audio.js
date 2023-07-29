@@ -93,7 +93,7 @@ function conversationLoop(playAudioHandler){
             formData.append('audio', blob, 'audio.ogg')
 
             //check for input lang 
-            inLang = document.querySelector('#lang_selector').value;
+            inLang = document.querySelector('#lang-selector').value;
             formData.append('lang', JSON.stringify(inLang));
 
             // check for model selection
