@@ -88,21 +88,73 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Let's Chat!</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Let's Chat! <i class="fa-regular fa-comments" style="color: #000000;"></i></h1>
           <button type="button" class="btn-close cls-sess" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="chat-modal">
           <h6>Please which language you speak, and which language you wish to translate to:</h6>
-          <select name="lang" id="lang-selector">
-              <option value="bg-en" selected="selected">BG -> ENG</option>
-              <option value="en-bg">ENG -> BG</option>
+
+          <div id="lang-container">
+            <i class="fa-solid fa-headset" style="color: #000000;"></i>
+            <select name="lang" id="lang-selector">
+                <option value="bg-en" selected="selected">BG -> ENG</option>
+                <option value="en-bg">ENG -> BG</option>
+            </select>
+            <i class="fa-solid fa-ear-listen" style="color: #000000;"></i>
+            
+          </div>
+          <h6>Please select the model for transcription, the larger the model, the longer response time but higher accuracy.</h6>
+          <select name="model" id="model_selector" onchange="changeTip()">
+            <option value="select" selected="selected" disabled>Select Model</option>
+              <option value="base">Base</option>
+              <option value="med" >Medium</option>
+              <option value="large">Large</option>
           </select>
-          <h6>Please select the model for transcription, this defines the speed/accuracy of the speech to text</h6>
-          <select name="model" id="model_selector">
-              <option value="base">Base ~20 seconds response time (Inaccurate)</option>
-              <option value="med" selected="selected">Medium ~1 minute response time (Recommended) </option>
-              <option value="large">Large ~3 minute response time (Accurate)</option>
-          </select>
+          <!-- Tool tips -->
+          <div>
+            <!-- BASE -->
+            <p>
+              <button class="btn btn-primary" type="button"  hidden id="baseBtn" data-bs-toggle="collapse" data-bs-target="#collapseBase" aria-expanded="false" aria-controls="collapseBase">
+                Base desc
+              </button>
+            </p>
+            <div style="min-height: 120px;" class="model-inactive" id="base">
+              <div class="collapse collapse-horizontal" id="collapseBase">
+                <div class="card card-body" style="min-width: 300px; margin: 5% 5% 5% 5%;">
+                  Base: This is the fastest turnaround (~20 seconds in test for short queries) but also the most inaccurate. If your questions/comments are simple and
+                  clear this should work for you.
+                </div>
+              </div>
+            </div>
+            <!-- MID -->
+            <p>
+              <button class="btn btn-primary" type="button" id="midBtn" hidden data-bs-toggle="collapse" data-bs-target="#collapseMid" aria-expanded="false" aria-controls="collapseMid">
+                Medium desc
+              </button>
+            </p>
+            <div style="min-height: 120px;" class="model-inactive" id="mid">
+              <div class="collapse collapse-horizontal" id="collapseMid">
+                <div class="card card-body" style="min-width: 300px; margin: 5% 5% 5% 5%;">
+                  Medium: The middle ground, decent turnaround (~1 minute in test for short queries) and decently accurate.
+                  If you're ok with waiting a bit longer, this option is recommeneded.
+                </div>
+              </div>
+            </div>
+            <!-- LARGE -->
+            <p>
+              <button class="btn btn-primary" type="button" hidden id="largeBtn" data-bs-toggle="collapse" data-bs-target="#collapseLarge" aria-expanded="false" aria-controls="collapseLarge">
+                Large desc
+              </button>
+            </p>
+            <div style="min-height: 120px;" class="model-inactive" id="large">
+              <div class="collapse collapse-horizontal" id="collapseLarge">
+                <div class="card card-body" style="min-width: 300px; margin: 5% 5% 5% 5%;">
+                  Large: The most accurate but by far the longest turnaround. (~3 minutes in test for short queries)
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- TT end -->
           <h6>It's best to give the chat a title, if you wish to revise it later</h6>
           <input type="text" name="title" id="chat-title" placeholder="Give this chat a title?">
           <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
@@ -172,4 +224,70 @@
 
 {% block page_scripts %}
 <script src="{% static 'BGpt/audio.js' %}"></script>
+<script>
+  function changeTip() {
+      const base = document.querySelector('#base');
+      const baseBtn = document.querySelector('#baseBtn');
+
+      const mid = document.querySelector('#mid');
+      const midBtn = document.querySelector('#midBtn');
+
+      const large = document.querySelector('#large');
+      const largeBtn = document.querySelector('#largeBtn');
+
+      const selector = document.querySelector('#model_selector');
+
+      if (selector.value == 'base'){
+        if (large.classList.contains('model-active')){
+          largeBtn.click();
+          large.classList.remove('model-active')
+          large.classList.add('model-inactive')
+        }
+        
+        if (mid.classList.contains('model-active')){
+          midBtn.click();
+          mid.classList.remove('model-active');
+          mid.classList.add('model-inactive');
+        }
+
+        base.classList.remove('model-inactive')
+        base.classList.add('model-active')
+        baseBtn.click();
+      }
+      else if (selector.value == 'med'){
+        if (base.classList.contains('model-active')){
+          baseBtn.click();
+          base.classList.remove('model-active')
+          base.classList.add('model-inactive')
+        }
+        
+        if (large.classList.contains('model-active')){
+          largeBtn.click();
+          large.classList.remove('model-active');
+          large.classList.add('model-inactive');
+        }
+
+        mid.classList.remove('model-inactive')
+        mid.classList.add('model-active')
+        midBtn.click();
+      }
+      else if (selector.value == 'large'){
+        if (base.classList.contains('model-active')){
+          baseBtn.click();
+          base.classList.remove('model-active')
+          base.classList.add('model-inactive')
+        }
+        
+        if (mid.classList.contains('model-active')){
+          midBtn.click();
+          mid.classList.remove('model-active');
+          mid.classList.add('model-inactive');
+        }
+
+        large.classList.remove('model-inactive')
+        large.classList.add('model-active')
+        largeBtn.click();
+      }
+    };
+</script>
 {% endblock %}

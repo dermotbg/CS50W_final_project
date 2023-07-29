@@ -305,9 +305,14 @@ body{
 #chat-modal > * {
     margin: 12px 0 12px 0;
 }
-#lang-selector{
-    max-width: 50%;
-    margin-left: 25%;
+
+#lang-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#lang-container > * {
+    font-size: large;
 }
 #chat-title{
     max-width: 50%;
@@ -484,4 +489,16 @@ footer{
         transform: translateX(100%);
         -webkit-transform: translateX(100%);
     }
+}
+// #collapseBase, #collapseMid, #collapseLarge{
+//     display: none;
+//     max-height: 0;
+// }
+.model-inactive{
+    display: none;
+    transform: translate(100%);
+}
+.model-active{
+    display: block;
+    transform: translate(0%);
 }
