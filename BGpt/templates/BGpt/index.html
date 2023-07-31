@@ -198,12 +198,14 @@
               <!-- first for loop is session groups, second is entries -->
               {% for sessions in history %}
                 {% for h in sessions %}
-                <div id="chat-cont"> 
-                  <div class="chat-session" hidden >{% ifchanged %} {{ h.session }} {% endifchanged %}</div>
-                  <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
-                  <div class="chat-session">{{ h.title }}</div>
-                  <a class="btn btn-prim" href="{% url 'history' user.id %}#{{h.session }}"><div class="chat-session">Open</div></a>
-                </div>
+                  {% ifchanged %}
+                  <div id="chat-cont"> 
+                    <div class="chat-session" hidden >{{ h.session }}</div>
+                    <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
+                    <div class="chat-session">{{ h.title }}</div>
+                    <a class="btn btn-prim" href="{% url 'history' user.id %}#{{h.session }}"><div class="chat-session">Open</div></a>
+                  </div>
+                  {% endifchanged %}
                 {% endfor %}
               {% endfor %}
             </div>

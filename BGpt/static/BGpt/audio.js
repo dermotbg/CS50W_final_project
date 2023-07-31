@@ -101,7 +101,7 @@ function conversationLoop(playAudioHandler){
             formData.append('model', JSON.stringify(model));
 
             // check for title
-            const title = document.querySelector('#chat-title').value
+            const title = document.querySelector('#chat-title-inp').value
             if (title){
                 formData.append('title', JSON.stringify(title))
             }
