@@ -156,7 +156,7 @@
           </div>
           <!-- TT end -->
           <h6>It's best to give the chat a title, if you wish to revise it later</h6>
-          <input type="text" name="title" id="chat-title" placeholder="Give this chat a title?">
+          <input type="text" name="title" id="chat-title-inp" placeholder="Give this chat a title?">
           <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
           <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
           <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
@@ -199,7 +199,7 @@
               {% for sessions in history %}
                 {% for h in sessions %}
                 <div id="chat-cont"> 
-                  <div class="chat-session" hidden >{{ h.session }}</div>
+                  <div class="chat-session" hidden >{% ifchanged %} {{ h.session }} {% endifchanged %}</div>
                   <div class="chat-session">{{ h.timestamp | date:"d M Y" }}</div>
                   <div class="chat-session">{{ h.title }}</div>
                   <a class="btn btn-prim" href="{% url 'history' user.id %}#{{h.session }}"><div class="chat-session">Open</div></a>
