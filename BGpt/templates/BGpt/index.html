@@ -41,7 +41,7 @@
         </h6>
         <div id="chat-hist">
           <!-- Button trigger chat_history modal -->
-          <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history">
+          <button type="button" class="btn btn-prim" data-bs-toggle="modal" data-bs-target="#chat_history" id="hist-btn">
             Load Previous Chat
           </button>
           {% else %}
@@ -191,7 +191,7 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Chat History</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">        
+          <div class="modal-body">
             <div class="hist-cont">
               <!-- first for loop is session groups, second is entries -->
               {% for sessions in history %}
@@ -209,6 +209,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button id="refresh" class="btn btn-sec">Refresh <i class="fa-solid fa-arrows-rotate" style="color: #000000;"></i></button>
             <a href="{% url 'history' user.id %}" class="btn btn-sec">View Full history</a>
             <button type="button" class="btn btn-sec" data-bs-dismiss="modal">Close</button>
             <!-- <button type="button" class="btn btn-prim">Save changes</button> -->
@@ -289,5 +290,25 @@
         largeBtn.click();
       }
     };
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // const histModal = document.querySelector('#chat_history');
+    const refresh = document.querySelector('#refresh');
+    const histBtn = document.querySelector('#hist-btn');
+
+    // use session storage to catch it page is refreshed by hist button
+    if (sessionStorage.getItem('refreshHist')){
+      // if it's found, click open history modal
+      histBtn.click();
+      // remove session item
+      sessionStorage.removeItem('refreshHist')
+    }
+    
+    refresh.addEventListener('click', function() {
+      // set session item on click
+      sessionStorage.setItem('refreshHist', 'true')
+      window.location.reload();
+    })
+  });
 </script>
 {% endblock %}
