@@ -17,7 +17,9 @@ function preLoad(){
     const currentUrl = new URL(window.location.href);
     const preLoad = currentUrl.hash.substring(1);
     // if page is loaded with a hash, load corresponding chat. 
-    if (preLoad != null){
+    if (preLoad != null && preLoad != ''){
+        const edc = document.querySelector('#edit-cont');
+        edc.style.display = 'flex';
         plChat = document.querySelectorAll(`.list-group-responses li[data-id="ch-${preLoad}"]`);
             plChat.forEach(log => {
                 // console.log(plChat)
@@ -63,7 +65,12 @@ function editPost(){
     // get chat from DB 
     var currentUrl = new URL(window.location.href);
     var chat_num = currentUrl.hash.substring(6);
-    // console.log(chat_num)
+
+    // catch different URL coming from quick history 
+    if (chat_num === '') {
+        chat_num = currentUrl.hash.substring(1);
+    }
+
     fetch(`/edit/${chat_num}`)
     .then(response => response.json())
     .then(result =>{
