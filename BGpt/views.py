@@ -161,7 +161,7 @@ def chat_loop(request):
         audio = request.FILES['audio']
         audio_file = utils.save_audio(audio)
 
-        # TODO : ENG to BG / BG to ENG selection
+        # Get whisper model
         formModel = json.loads(request.POST.get('model'))
 
         match formModel:

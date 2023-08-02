@@ -47,7 +47,6 @@ def gen_resp(orig_txt, formLang):
         print(response["choices"][0]["message"]["content"].encode('utf-8').decode())
         return response["choices"][0]["message"]["content"].encode('utf-8').decode()
 
-
 # convert to base64 for json
 def encode_resp(response_path):
     with open (response_path, 'rb') as _tts:

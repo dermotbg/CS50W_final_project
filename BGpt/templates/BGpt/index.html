@@ -157,7 +157,7 @@
           <!-- TT end -->
           <h6>It's best to give the chat a title, if you wish to revise it later</h6>
           <input type="text" name="title" id="chat-title-inp" placeholder="Give this chat a title?">
-          <button id="btn-start" class="btn btn-prim"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
+          <button id="btn-start" class="btn btn-prim" style="display: none;"> <i class="fa-solid fa-microphone"></i> Start Recording</button>
           <button id="btn-stop" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-microphone-slash"></i> Stop Recording</button>
           <button id="btn-replay" class="btn btn-prim" style="display: none;"><i class="fa-solid fa-repeat"></i> Replay Audio</button>
           <br>
@@ -237,6 +237,10 @@
       const largeBtn = document.querySelector('#largeBtn');
 
       const selector = document.querySelector('#model_selector');
+
+      // SHOW BUTTON ONCE SELECTED
+      const startBtn = document.querySelector('#btn-start');
+      startBtn.style.display = 'block';
 
       if (selector.value == 'base'){
         if (large.classList.contains('model-active')){
