@@ -41,14 +41,17 @@ function preLoad(){
 function viewChat(){
     const histItems = document.querySelectorAll('.list-group-item')
 
+    // click to load chat functionality
     histItems.forEach(item =>{
         item.addEventListener('click', function(e){
             e.preventDefault
+            // show edit button
             const editBtn = document.querySelector('#edit-cont');
             editBtn.style.display = 'flex';  
 
+            // take chat session number
             const chatSession = this.dataset.id;
-            // console.log(chatSession);
+
             // hide any open chats
             const allChats = document.querySelectorAll('.list-group-responses li');
             allChats.forEach(log => {
@@ -81,7 +84,6 @@ function editChat(){
     fetch(`/edit/${chat_num}`)
     .then(response => response.json())
     .then(result =>{
-        console.log(result)
 
         for (let i = 0; i < result.length; i++){
             let inp_id = result[i].pk
@@ -91,16 +93,18 @@ function editChat(){
             let title = document.querySelector('#chat-title')
             title.innerHTML = result[i].fields.title;
 
+            // container to append to 
             const container = document.querySelector('#edit-mod');
+
             // create editable post areas
             const editBox = document.createElement('textarea');
-
             editBox.innerHTML = result[i].fields.input
             editBox.className = 'bubble left';
             editBox.id = `ed-${inp_id}`
             editBox.style.display = 'flex';
+
+            // respond to window size mobile/desktop
             w = window.innerWidth 
-            // console.log(w)
             if (window.innerWidth <= 600){
                 editBox.style.minWidth = '90%'
                 editBox.style.minHeight = '6em'
@@ -185,10 +189,9 @@ function editChat(){
                     const origs = document.querySelectorAll(`[data-id="ch-${activeSess}"]`)
 
                     origs.forEach(function(e){
-                        console.log(e.id.substring(3))
+                        // loop through active elements and replace details of matches
                         for (let i = 0; i < inputArray.length; i++){
                             if (inputArray[i].id === e.id.substring(3) && e.id.includes("inp")){
-                                console.log(e.innerHTML);
                                 e.innerHTML = inputArray[i].input
                             }
                         };
@@ -204,6 +207,7 @@ function editChat(){
 }
 
 function deleteChat(){
+    // take chat number from url
     var currentUrl = new URL(window.location.href);
     var chat_num = currentUrl.hash.substring(6);
 
@@ -225,27 +229,14 @@ function deleteChat(){
         // remove deleted element
         const old = document.getElementById((`item-${chat_num}`))
         // get enclosing anchor and remove
-        ol = old.parentElement
-        ol.remove()
+        ol = old.parentElement;
+        ol.remove();
 
         // get top element in chat list
         const list = document.querySelector('.list-group');
         const top = list.firstElementChild;
+        // open top element
         top.click();
 
     })
 }
-
-
-
-// fetch(`/save/${chat_num}`, {
-//     method: 'PUT',
-//     headers: {
-//         "X-CSRFToken": Cookies.get('csrftoken'),
-//         "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//         "posts": inputArray
-//     })
-// })
-// .then( () => {
