@@ -185,8 +185,10 @@ function editChat(){
                     const origs = document.querySelectorAll(`[data-id="ch-${activeSess}"]`)
 
                     origs.forEach(function(e){
+                        console.log(e.id.substring(3))
                         for (let i = 0; i < inputArray.length; i++){
-                            if (inputArray[i].id === e.id.substring(e.id.length - 2) && e.id.includes("inp")){
+                            if (inputArray[i].id === e.id.substring(3) && e.id.includes("inp")){
+                                console.log(e.innerHTML);
                                 e.innerHTML = inputArray[i].input
                             }
                         };
