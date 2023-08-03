@@ -213,7 +213,6 @@ body .title-list {
   list-style: none;
 }
 body .list-group {
-  max-height: 380px;
   overflow-y: auto;
   border: none;
 }
@@ -275,7 +274,7 @@ body .resp {
 }
 
 #chat-modal > * {
-  margin: 12px 0 12px 0;
+  margin: 5px 0 5px 0;
 }
 
 #lang-container {
