@@ -143,11 +143,13 @@ def profile_view(request, user_id):
 def chat_loop(request):
     # reset info on close session
     if request.method == "PUT":
-        if request.session['chat_id']:
-            request.session['chat_id'] = None
-            return JsonResponse({"message": "session_ended"}, status=200)
-        else:
+        try:
+            if request.session['chat_id']:
+                request.session['chat_id'] = None
+                return JsonResponse({"message": "session_ended"}, status=200)
+        except KeyError:
             return JsonResponse({"message": "No Session to end"}, status=200)
+                
     
     
     if request.method == "POST":
@@ -284,6 +286,10 @@ def history_view(request, user_id):
 
 @login_required
 def edit(request, ch_id):
+    user = models.Chat.objects.filter(session=ch_id).first()
+    if user.user != request.user:
+            return JsonResponse({"Error": "Unauthorised User."}, status=403)
+    
     try:
         chats = models.Chat.objects.filter(session=ch_id)
         chat_ser = serialize("json", chats)
@@ -336,14 +342,23 @@ def save(request, ch_id):
 
 def delete(request, ch_id):
     if request.method == "DELETE":
-        try:
-            chat = models.Chat.objects.filter(session=ch_id)
-            if chat.user != request.user:
-                return PermissionDenied
-            else:
-                chat.delete()
-                return JsonResponse({"Message": "Chat deleted."}, status=200)
-        except:
-            PermissionDenied
+        user = models.Chat.objects.filter(session=ch_id).first()
+        chat = models.Chat.objects.filter(session=ch_id)
+        if user.user != request.user:
+            return PermissionDenied
+        else:
+            chat.delete()
+            return JsonResponse({"Message": "Chat deleted."}, status=200)
+        # try:
+        #     chat = models.Chat.objects.filter(session=ch_id)
+        #     print(chat.user)
+        #     print(request.user)
+        #     if chat.user != request.user:
+        #         return PermissionDenied
+        #     else:
+        #         chat.delete()
+        #         return JsonResponse({"Message": "Chat deleted."}, status=200)
+        # except:
+        #     return JsonResponse({"Error": "Unauthorised User."}, status=403)
     else:
         return JsonResponse({"Error": "Must be delete request"}, status=400)

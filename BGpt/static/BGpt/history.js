@@ -178,6 +178,9 @@ function editChat(){
                     // catch 2 or more edits:
                     var activeUrl = new URL(window.location.href);
                     var activeSess = activeUrl.hash.substring(6);
+                    if (activeSess === null){
+                        activeSess = activeUrl.hash.substring(2);
+                    }
                     // update original chat li's
                     const origs = document.querySelectorAll(`[data-id="ch-${activeSess}"]`)
 
@@ -217,6 +220,17 @@ function deleteChat(){
     .then(response => response.json())
     .then(result =>{
         console.log(result)
+        // remove deleted element
+        const old = document.getElementById((`item-${chat_num}`))
+        // get enclosing anchor and remove
+        ol = old.parentElement
+        ol.remove()
+
+        // get top element in chat list
+        const list = document.querySelector('.list-group');
+        const top = list.firstElementChild;
+        top.click();
+
     })
 }
 
