@@ -54,8 +54,9 @@ def gen_resp(orig_txt, formLang):
         print(response["choices"][0]["message"]["content"].encode('utf-8').decode())
         return response["choices"][0]["message"]["content"].encode('utf-8').decode()
 
-# convert to base64 for json
+
 def encode_resp(response_path):
+    # convert tts to base64 for json
     with open (response_path, 'rb') as _tts:
         data = _tts.read()
         tts_base64 = base64.b64encode(data).decode('utf-8')
@@ -65,7 +66,6 @@ def gather_hist(user_id):
         hist = models.Chat.objects.filter(user=user_id).order_by('-session', 'timestamp')
         rev_hist = []
         d_hist = set()
-        #  revision attempt using groupby()
 
         # iterables for each session and each group of sessions
         # given expression into the groupby is "x.session" which is the individual session id's in hist.
