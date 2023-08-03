@@ -1,14 +1,21 @@
 import openai
 import os
 import base64 
+import string
+import random
 from . import models
 from itertools import groupby
 
 from django.conf import settings
 
 def save_audio(audio_file):
-    # should have random string generator for filename? 
-    # TODO contemplate returning to temp file iteration again
+    # set random string length
+    n = 5
+    # create random string
+    name = "".join(random.choices(string.ascii_lowercase, k=n))
+    # attach to audio file
+    audio_file.name = name
+    # define directory and write to disk
     audio_file_path = os.path.join(settings.MEDIA_ROOT, 'BGpt/static/BGpt', audio_file.name)
     with open(audio_file_path, 'wb') as f:
         for chunk in audio_file.chunks():
