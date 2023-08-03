@@ -102,6 +102,9 @@ There are two API's in action here:
 
 Nothing too exciting here, just an area to update information/password. Uses the slide.js animation. 
 
+**Responsiveness** 
+
+Using [@media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries) the website changes it's structure to suit smaller devices where needed. 
 
 # Files 
 ```
