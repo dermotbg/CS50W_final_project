@@ -261,6 +261,7 @@ def history_view(request, user_id):
     except models.User.DoesNotExist:
         raise PermissionDenied
 
+
     if request.user != user:
         raise PermissionDenied
 
@@ -323,3 +324,18 @@ def save(request, ch_id):
         return HttpResponse(status=204)
     elif request.method != "PUT":
         return JsonResponse({"message": "Error: Must be PUT request"}, status=400)
+    
+
+def delete(request, ch_id):
+    if request.method == "DELETE":
+        try:
+            chat = models.Chat.objects.filter(session=ch_id)
+            if chat.user != request.user:
+                return PermissionDenied
+            else:
+                chat.delete()
+                return JsonResponse({"Message": "Chat deleted."}, status=200)
+        except:
+            PermissionDenied
+    else:
+        return JsonResponse({"Error": "Must be delete request"}, status=400)

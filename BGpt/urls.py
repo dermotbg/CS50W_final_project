@@ -13,5 +13,6 @@ urlpatterns =[
     # API's
     path("save/<int:ch_id>", views.save, name="save"),
     path("edit/<int:ch_id>", views.edit, name="edit"),
+    path("delete/<int:ch_id>", views.delete, name="delete"),
     path("chat_loop", views.chat_loop, name="chat_loop")
 ]

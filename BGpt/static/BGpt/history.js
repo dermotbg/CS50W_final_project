@@ -4,11 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     preLoad()
 
     // View Funct
-    viewPost()
+    viewChat()
 
     const edit = document.querySelector('#edit')
     edit.addEventListener('click', () =>{
-        editPost()
+        editChat()
+    });
+
+    const del = document.querySelector('#delete')
+    del.addEventListener('click', () =>{
+        if (confirm("Are you sure you wish to delete this chat?") == true){
+            deleteChat()
+        }
     });
 });
 
@@ -31,7 +38,7 @@ function preLoad(){
     };
 }
 
-function viewPost(){
+function viewChat(){
     const histItems = document.querySelectorAll('.list-group-item')
 
     histItems.forEach(item =>{
@@ -61,7 +68,7 @@ function viewPost(){
 }
 
 
-function editPost(){
+function editChat(){
     // get chat from DB 
     var currentUrl = new URL(window.location.href);
     var chat_num = currentUrl.hash.substring(6);
@@ -93,7 +100,7 @@ function editPost(){
             editBox.id = `ed-${inp_id}`
             editBox.style.display = 'flex';
             w = window.innerWidth 
-            console.log(w)
+            // console.log(w)
             if (window.innerWidth <= 600){
                 editBox.style.minWidth = '90%'
                 editBox.style.minHeight = '6em'
@@ -190,3 +197,39 @@ function editPost(){
         };
     });
 }
+
+function deleteChat(){
+    var currentUrl = new URL(window.location.href);
+    var chat_num = currentUrl.hash.substring(6);
+
+    // catch different URL coming from quick history 
+    if (chat_num === '') {
+        chat_num = currentUrl.hash.substring(1);
+    }
+    console.log(chat_num)
+
+    fetch(`/delete/${chat_num}`, {
+        method: 'DELETE',
+        headers: {
+            "X-CSRFToken": Cookies.get('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(result =>{
+        console.log(result)
+    })
+}
+
+
+
+// fetch(`/save/${chat_num}`, {
+//     method: 'PUT',
+//     headers: {
+//         "X-CSRFToken": Cookies.get('csrftoken'),
+//         "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//         "posts": inputArray
+//     })
+// })
+// .then( () => {

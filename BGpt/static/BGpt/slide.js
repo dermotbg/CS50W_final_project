@@ -48,30 +48,30 @@ function slide(container1, cont1Btn, container2, cont2Btn){
             container1.style.display = 'flex';
             container1.style.animationPlayState = "running";   
         }
-        cont2Btn.addEventListener('click', function() {
-            if (getComputedStyle(container1).display === 'flex'){
-                container1.style.animationPlayState = "paused";
-                container1.classList.remove('slide-in');
-                container1.classList.add('slide-out');
-                container1.style.animationPlayState = "running";
-                if (container2.classList.contains('slide-out')){
-                    container2.classList.remove('slide-out');
-                };
-                container1.addEventListener('animationend', function() {
-                    this.style.display = 'none';
-                    container2.classList.add('slide-in');
-                    container2.style.display = 'flex';
-                    container2.style.animationPlayState = "running";
-                },{once:true});
-            }
-            else{
-                if (container2.classList.contains('slide-out')){
-                    container2.classList.remove('slide-out');
-                };
+    })
+    cont2Btn.addEventListener('click', function() {
+        if (getComputedStyle(container1).display === 'flex'){
+            container1.style.animationPlayState = "paused";
+            container1.classList.remove('slide-in');
+            container1.classList.add('slide-out');
+            container1.style.animationPlayState = "running";
+            if (container2.classList.contains('slide-out')){
+                container2.classList.remove('slide-out');
+            };
+            container1.addEventListener('animationend', function() {
+                this.style.display = 'none';
                 container2.classList.add('slide-in');
                 container2.style.display = 'flex';
                 container2.style.animationPlayState = "running";
-            }   
-        });
-    })
+            },{once:true});
+        }
+        else{
+            if (container2.classList.contains('slide-out')){
+                container2.classList.remove('slide-out');
+            };
+            container2.classList.add('slide-in');
+            container2.style.display = 'flex';
+            container2.style.animationPlayState = "running";
+        }   
+    });
 }
