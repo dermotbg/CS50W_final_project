@@ -52,7 +52,6 @@ function conversationLoop(playAudioHandler){
         const stop_btn = document.querySelector('#btn-stop');
         const media_rec = new MediaRecorder(audio_stream);
         let data = [];
-        // let rec_sound = document.querySelector('#playback');
 
         // on record button function
         start_btn.addEventListener('click', () =>{
@@ -88,7 +87,7 @@ function conversationLoop(playAudioHandler){
             // clear data array for the next iteration
             data = [];
 
-            
+            // create form to be sent
             const formData = new FormData();
             formData.append('audio', blob, 'audio.ogg')
 
@@ -111,7 +110,6 @@ function conversationLoop(playAudioHandler){
                 body: formData
             })
             .then(response => response.json())
-            // console.log(response))
             .then(data => {
                 // remove spinner
                 spin.style.display = 'none';
@@ -129,7 +127,7 @@ function conversationLoop(playAudioHandler){
                     trans_area.removeChild(trans_area.lastChild)
                 }
                 // print and play
-                console.log(data);
+                console.log(data); 
                 playAudio(data.tts_resp);
 
                 // replay event needs a handler to be removed each time to prevent overlapping
@@ -202,6 +200,7 @@ function conversationLoop(playAudioHandler){
 }
 
 function closeSession(){
+    // needed to organise DB entries
     const close_sess = document.querySelectorAll('.cls-sess');
     close_sess.forEach(function(e){
         e.addEventListener('click', function(){
@@ -212,10 +211,10 @@ function closeSession(){
                 })
             })
             .then( () => {
+                // remove any responses generated in the session
                 const resp_area = document.querySelector('#response');
                 const trans_area = document.querySelector('#resp-trans');
 
-                // clear old response if applicable
                 while (resp_area.firstChild){
                     resp_area.removeChild(resp_area.lastChild)
                 }
@@ -236,6 +235,7 @@ function closeSession(){
                 const replay = document.querySelector('#btn-replay');
                 replay.style.display = 'none';
             })
+            .catch(error => console.log(error))
         });
     });
 }
