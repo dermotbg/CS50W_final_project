@@ -147,7 +147,7 @@ def chat_loop(request):
             if request.session['chat_id']:
                 request.session['chat_id'] = None
                 return JsonResponse({"message": "session_ended"}, status=200)
-        except KeyError:
+        except Exception:
             return JsonResponse({"message": "No Session to end"}, status=200)
                 
     
@@ -261,6 +261,8 @@ def chat_loop(request):
                              "full_trans": full_trans}, 
                              status=200)
         # return JsonResponse({"tts_resp": tts_b64}, status=200)
+    # if not post or put
+    return JsonResponse({}, status=200)
 
 
 @login_required
@@ -300,42 +302,33 @@ def edit(request, ch_id):
         
 @login_required
 def save(request, ch_id):
-    # try:
-    #     # inp = models.Chat.objects.get(session=ch_id)
-    #     chat = models.Chat.objects.filter(session=ch_id)
-    # except:
-    #     models.Chat.DoesNotExist
-    #     return JsonResponse({"message": "Invalid Payload"}, status=400)
-    
-    # if chat.user != request.user:
-    #     return JsonResponse({"message": "Unauthorized User"}, status=403)
     
     if request.method == "PUT":
         try:
-            # inp = models.Chat.objects.get(session=ch_id)
             chat = models.Chat.objects.filter(session=ch_id)    
         except:
             models.Chat.DoesNotExist
             return JsonResponse({"message": "Invalid Payload"}, status=400)
+        
+        # conv json to dict
         data = json.loads(request.body.decode('utf-8'))
-        # print(data)
+
         posts = data["posts"]
+
+        # update previous titles in DB
         for new_title in chat:
             new_title.title = posts[0]["title"]
-            print(new_title.title)
             new_title.save()
-        # update all inputs
+
+        # update all inputs in DB
         for row in chat:
             for e in posts:
                 if str(row.pk) == e["id"]:
                     row.input = e["input"]
                     row.save()
-            # if posts[row] == row.pk:
-            #     row.input = data["input"]
-            #     row.save()
-            # models.Chat.objects.filter(pk=post_id).update(input=post_content)
 
         return HttpResponse(status=204)
+    
     elif request.method != "PUT":
         return JsonResponse({"message": "Error: Must be PUT request"}, status=400)
     
@@ -344,21 +337,13 @@ def delete(request, ch_id):
     if request.method == "DELETE":
         user = models.Chat.objects.filter(session=ch_id).first()
         chat = models.Chat.objects.filter(session=ch_id)
+
         if user.user != request.user:
             return PermissionDenied
+        
         else:
             chat.delete()
             return JsonResponse({"Message": "Chat deleted."}, status=200)
-        # try:
-        #     chat = models.Chat.objects.filter(session=ch_id)
-        #     print(chat.user)
-        #     print(request.user)
-        #     if chat.user != request.user:
-        #         return PermissionDenied
-        #     else:
-        #         chat.delete()
-        #         return JsonResponse({"Message": "Chat deleted."}, status=200)
-        # except:
-        #     return JsonResponse({"Error": "Unauthorised User."}, status=403)
+        
     else:
         return JsonResponse({"Error": "Must be delete request"}, status=400)
