@@ -37,29 +37,29 @@ The idea behind this came from my own journey into learning a new language in a 
 
 ### Audio loop Client/Server/Client
 
-Coming from a Audio Engineering background, I thought this knowledge might be useful to impletement an easy system to send audio back and forth. It was not. Turns out it was a lot more complicated than originally expected, so I attempted to break it down into it's individual steps:
+Coming from a Audio Engineering background, I thought this knowledge might be useful to implement an easy system to send audio back and forth. It was not. Turns out it was a lot more complicated than originally expected, so I attempted to break it down into it's individual steps:
 
 **Step 1: Get the audio from the client.**
 
-First we need to get access to the users mic, this thankfully was easily accessable with the [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) method. A very helpful tool in handling the recording of the audio was the [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API).
+First we need to get access to the users mic, this thankfully was easily accessible with the [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) method. A very helpful tool in handling the recording of the audio was the [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API).
 
-I took advantage of this a lot by firstly recording through a [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder) instance, and then using its [ondataavailable](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/dataavailable_event) event to push the info into an array and folowing up with an [onstop](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/stop_event) event to trigger an asynchronous function converting the recording to be sent back to the server via POST as a blob through the [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData) constructor. 
+I took advantage of this a lot by firstly recording through a [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder) instance, and then using its [ondataavailable](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/dataavailable_event) event to push the info into an array and following up with an [onstop](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/stop_event) event to trigger an asynchronous function converting the recording to be sent back to the server via POST as a blob through the [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData) constructor. 
 
 **Step 2: Process the audio server side.**
 
 This processessing heavily relies on openai's [Whisper API](https://github.com/openai/whisper) & [ChatGPT API](https://platform.openai.com/docs/guides/gpt). Whisper looks after the transcription, but firstly we must generate a file path for the audio, so it uses the save_audio() function from utils.py to save a temp file, it's then transcribed based off the given model. 
 
-It's both a blessing and a hinderance though, as it's smaller models struggle to understand Bulgarian and larger models are quite time consuming. A response is then generated of the transcribed text with chat GPT. Even with transcription error, it's able to generate decent repsonses. That response is then passed to [gTTS](https://gtts.readthedocs.io/en/latest/) to generate an an audio file based on the chatgpt response. 
+It's both a blessing and a hinderance though, as it's smaller models struggle to understand Bulgarian and larger models are quite time consuming. A response is then generated of the transcribed text with chat GPT. Even with transcription error, it's able to generate decent responses. That response is then passed to [gTTS](https://gtts.readthedocs.io/en/latest/) to generate an an audio file based on the chatgpt response. 
 
-- gTTS is quite robtic sounding and more like a placeholder, future iterations may take advantage of some outsourced API's. 
+- gTTS is quite robotic sounding and more like a placeholder, future iterations may take advantage of some outsourced API's. 
 
 Before we can send it via JSON, it needs to be converted into a Base64 string, which is handled by our encode_resp() function in utils.py which uses the [base64](https://docs.python.org/3/library/base64.html) Python Library. 
 
 **Step 3: Process the audio for playback client-side.**
 
-From the intial functions promise we take the response and fire our playAudio() function. This uses the [Web Audio API's](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext) interface to provide a framework for decoding the incoming base64 string, feeding it back into an array and then into a buffer to be played back through the users output. 
+From the initial function's promise we take the response and fire our playAudio() function. This uses the [Web Audio API's](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext) interface to provide a framework for decoding the incoming base64 string, feeding it back into an array and then into a buffer to be played back through the users output. 
 
-**Additionals**
+**Additional Features**
 
 The text is received from the backend in an array of words. The array of words is looped through and divs are created at an interval using [setInterval](https://developer.mozilla.org/en-US/docs/Web/API/setInterval) to mimic the word by word response you normally get via LLM's. While it's iterating through each word, it's applying [Bootstrap Tooltips](https://getbootstrap.com/docs/5.3/components/tooltips/) to each generated div, which can be hovered over to display the translation of the word. 
 
@@ -72,7 +72,7 @@ The application uses a combination of single page and branching path ideas.
 
 The main functionality of the application is hosted within the index page, mostly without any refreshing. While using the index as a landing, I took advantage of [Bootstrap Modals](https://getbootstrap.com/docs/5.3/components/modal/) to generate a "chat" interface and another modal for a "quick history" interface. 
 
-All chatting takes place within the modal, once the chat is over and you close the modal, the back end receives a PUT request to compartmentalise the preceeding chat as a specific "chat session".
+All chatting takes place within the modal, once the chat is over and you close the modal, the back end receives a PUT request to compartmentalise the preceding chat as a specific "chat session".
 
 There is a "Quick History" interface, this opens a modal that offers links to view the last 5 chats you've had. These effectively all lead to the "Full History" page explained below, but amend the path on it's load. 
 
@@ -84,13 +84,13 @@ While there are two paths for Login and Register, they are the same page that us
 
 Could be classed as similar to previous iterations of History pages we've completed in Problem Sets throughout the course but I've attempted to take it to the next level. 
 
-Structurely it's made using [Bootstrap List Groups](https://getbootstrap.com/docs/5.3/components/list-group/). On the left there are columns with individual chats sessions, and once clicked, display the correct session on the right side. 
+Structurally it's made using [Bootstrap List Groups](https://getbootstrap.com/docs/5.3/components/list-group/). On the left there are columns with individual chats sessions, and once clicked, display the correct session on the right side. 
 
-Mostly functioning through onlick listeners taking dataset values from the left column and displying the corresponding chat on the right. 
+Mostly functioning through onClick listeners taking dataset values from the left column and displaying the corresponding chat on the right. 
 
 My plan to give it distinctiveness and complexity was to make a seamless editing experience. While in previous projects we've dealt with AJAX requests for individual posts/etc, I wanted everything to be editable within one action. Each chat has multiple entries with no limit on quantity. 
 
-When a chat is edited, a modal is opened with the full chat but all inputs and the title are editable (The reponses are disabled). 
+When a chat is edited, a modal is opened with the full chat but all inputs and the title are editable (The responses are disabled). 
 There are two API's in action here: 
 
 **/edit** - Just takes the information from the database, allowing the application to generate the editing interface. 
