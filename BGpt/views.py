@@ -34,6 +34,10 @@ def index(request):
         return render(request, "BGpt/index.html")
 
 def login_view(request):
+
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -54,6 +58,10 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 def register(request):
+
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('index'))
+
     if request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
